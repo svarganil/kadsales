@@ -1,0 +1,2239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Методичка для отдела продаж — KADZAMA</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #E8222A;
+    --red-dark: #C41B22;
+    --white: #ffffff;
+    --gray-50: #FAFAFA;
+    --gray-100: #F4F4F4;
+    --gray-200: #E8E8E8;
+    --gray-400: #A0A0A0;
+    --gray-600: #606060;
+    --gray-800: #242424;
+    --black: #111111;
+    --sidebar-w: 260px;
+    --font: 'Montserrat', sans-serif;
+    --radius: 4px;
+    --tr: 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: var(--font);
+    background: var(--white);
+    color: var(--gray-800);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    height: 56px;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 20px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+  }
+
+  .topbar img { height: 30px; width: auto; display: block; }
+
+  .topbar-sep { width: 1px; height: 24px; background: rgba(255,255,255,0.15); }
+
+  .topbar-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .burger {
+    display: none;
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .burger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.7); border-radius: 2px; }
+
+  /* LAYOUT */
+  .layout { display: flex; flex: 1; min-height: 0; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    background: var(--gray-50);
+    border-right: 1.5px solid var(--gray-200);
+    position: sticky;
+    top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+  }
+
+  .sidebar-inner { padding: 28px 0 40px; }
+
+  .sidebar-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    padding: 0 20px 12px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-600);
+    transition: background var(--tr), color var(--tr);
+    border-left: 3px solid transparent;
+  }
+
+  .nav-item:hover { background: var(--gray-100); color: var(--gray-800); }
+
+  .nav-item.active {
+    background: rgba(232,34,42,0.06);
+    color: var(--red-dark);
+    border-left-color: var(--red);
+    font-weight: 700;
+  }
+
+  .nav-num {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--gray-400);
+    min-width: 18px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav-item.active .nav-num { color: var(--red); }
+
+  /* CONTENT */
+  .content { flex: 1; overflow-y: auto; min-width: 0; }
+
+  /* PAGES */
+  .page { display: none; animation: fadeIn 0.2s ease; }
+  .page.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* PAGE HERO */
+  .page-hero {
+    background: var(--black);
+    padding: 48px 52px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(232,34,42,0.04) 40px, rgba(232,34,42,0.04) 41px);
+    pointer-events: none;
+  }
+
+  .page-hero::after {
+    content: '';
+    position: absolute; right: -40px; top: -40px;
+    width: 240px; height: 240px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,34,42,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .page-eyebrow {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--red); margin-bottom: 12px;
+  }
+
+  .page-title {
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 900; color: var(--white);
+    line-height: 1.1; letter-spacing: -0.02em;
+  }
+
+  .page-title span { color: var(--red); }
+
+  /* PAGE BODY */
+  .page-body { padding: 40px 52px 60px; max-width: 820px; }
+
+  /* INTRO */
+  .intro-grid { display: flex; flex-direction: column; gap: 16px; }
+
+  .intro-row { display: flex; gap: 12px; align-items: flex-start; }
+
+  .intro-label {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--red);
+    min-width: 100px; padding-top: 2px; flex-shrink: 0;
+  }
+
+  .intro-text { font-size: 14px; color: var(--gray-600); line-height: 1.75; }
+
+  .section-divider { height: 1px; background: var(--gray-200); margin: 32px 0; }
+
+  .section-heading {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray-400); margin-bottom: 14px;
+  }
+
+  /* DOC LINKS */
+  .doc-links { display: flex; flex-direction: column; gap: 10px; }
+
+  .doc-link {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    background: var(--gray-50); border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius); text-decoration: none;
+    font-size: 13px; font-weight: 600; color: var(--gray-800);
+    transition: border-color var(--tr), transform var(--tr), background var(--tr);
+  }
+
+  .doc-link:hover { border-color: var(--red); background: rgba(232,34,42,0.03); transform: translateX(4px); }
+
+  .doc-link-icon {
+    width: 34px; height: 34px; background: var(--red);
+    border-radius: var(--radius); display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; color: white;
+  }
+
+  .doc-link-icon svg { width: 16px; height: 16px; }
+
+  .doc-link-sub { font-size: 11px; font-weight: 400; color: var(--gray-400); display: block; margin-top: 2px; }
+
+  /* CHARTER */
+  .charter-intro { font-size: 13px; color: var(--gray-400); font-style: italic; line-height: 1.7; margin-bottom: 24px; }
+
+  .charter-list { display: flex; flex-direction: column; }
+
+  .charter-item { display: flex; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--gray-100); align-items: flex-start; }
+  .charter-item:last-child { border-bottom: none; }
+
+  .charter-num { font-size: 11px; font-weight: 800; color: var(--red); min-width: 22px; padding-top: 2px; font-variant-numeric: tabular-nums; }
+
+  .charter-text { font-size: 13.5px; color: var(--gray-600); line-height: 1.65; }
+
+  /* SOCIAL */
+  .social-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+
+  .social-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px; background: var(--gray-50);
+    border: 1.5px solid var(--gray-200); border-radius: var(--radius);
+    text-decoration: none; color: var(--gray-800);
+    font-size: 13px; font-weight: 700;
+    transition: border-color var(--tr), color var(--tr), transform var(--tr), background var(--tr);
+  }
+
+  .social-link:hover { border-color: var(--red); color: var(--red-dark); background: rgba(232,34,42,0.03); transform: translateY(-2px); }
+
+  .social-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+
+  .social-sub { font-size: 11px; color: var(--gray-400); font-weight: 400; display: block; margin-top: 1px; }
+
+  .social-note { margin-top: 18px; font-size: 12px; color: var(--gray-400); font-style: italic; }
+
+  .content-copy {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.75;
+  }
+
+  .content-copy + .content-copy { margin-top: 14px; }
+
+  .content-list {
+    margin: 12px 0 0 18px;
+    padding: 0;
+    list-style: disc;
+  }
+
+  .content-list li,
+  .content-sublist li {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.75;
+  }
+
+  .content-list li::marker { color: var(--red); }
+
+  .content-list > li + li { margin-top: 10px; }
+
+  .content-olist {
+    margin: 12px 0 0 18px;
+    padding: 0;
+  }
+
+  .content-olist li {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.75;
+  }
+
+  .content-olist li::marker { color: var(--red); font-weight: 700; }
+  .content-olist > li + li { margin-top: 10px; }
+
+  .content-sublist {
+    margin-top: 8px;
+    padding-left: 20px;
+    list-style: disc;
+  }
+
+  .content-sublist li::marker { color: var(--gray-400); }
+  .content-sublist > li + li { margin-top: 8px; }
+
+  .report-card {
+    margin-top: 14px;
+    padding: 16px 18px;
+    background: var(--gray-50);
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius);
+  }
+
+  .report-block + .report-block { margin-top: 16px; }
+
+  .report-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--gray-800);
+    margin-bottom: 6px;
+  }
+
+  .report-text {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.75;
+    white-space: pre-line;
+  }
+
+  .content-pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: var(--font);
+  }
+
+  .guide-step + .guide-step { margin-top: 20px; }
+
+  .guide-image {
+    width: 100%;
+    display: block;
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius);
+    background: var(--white);
+  }
+
+  .guide-step-title {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--gray-800);
+  }
+
+  /* INLINE ACCORDION (used on intro page) */
+  .ia-wrap { display: flex; flex-direction: column; gap: 8px; }
+
+  .ia-item {
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color var(--tr), box-shadow var(--tr);
+  }
+
+  .ia-item:hover { border-color: rgba(232,34,42,0.3); }
+  .ia-item.open  { border-color: var(--red); box-shadow: 0 3px 16px rgba(232,34,42,0.09); }
+
+  .ia-trigger {
+    width: 100%; background: none; border: none; cursor: pointer;
+    padding: 14px 18px; display: flex; align-items: center; gap: 12px;
+    font-family: var(--font); font-size: 13px; font-weight: 700;
+    color: var(--gray-800); text-align: left;
+    transition: background var(--tr);
+  }
+
+  .ia-trigger:hover, .ia-item.open .ia-trigger { background: var(--gray-50); }
+  .ia-item.open .ia-trigger { color: var(--red-dark); }
+
+  .ia-icon {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 1.5px solid var(--gray-200);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-left: auto;
+    color: var(--gray-400);
+    transition: transform var(--tr), background var(--tr), border-color var(--tr);
+  }
+
+  .ia-icon svg { width: 12px; height: 12px; }
+  .ia-item.open .ia-icon { transform: rotate(45deg); background: var(--red); border-color: var(--red); color: white; }
+
+  .ia-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1); }
+  .ia-body-inner { padding: 4px 18px 20px; }
+
+  /* SECTION TABS (Статьи / Видео / Курсы) */
+  .section-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 24px;
+    border-bottom: 1.5px solid var(--gray-200);
+    padding-bottom: 0;
+  }
+
+  .section-tab {
+    padding: 9px 18px 10px;
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--gray-400);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 2.5px solid transparent;
+    margin-bottom: -1.5px;
+    transition: color var(--tr), border-color var(--tr);
+  }
+
+  .section-tab:hover { color: var(--gray-800); }
+  .section-tab.active { color: var(--red-dark); border-bottom-color: var(--red); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ARTICLE ACCORDION */
+  .article-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .article-item {
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color var(--tr), box-shadow var(--tr);
+  }
+
+  .article-item:hover { border-color: rgba(232,34,42,0.3); }
+  .article-item.open { border-color: var(--red); box-shadow: 0 3px 16px rgba(232,34,42,0.08); }
+
+  .article-trigger {
+    width: 100%; background: none; border: none; cursor: pointer;
+    padding: 16px 18px; display: flex; align-items: flex-start; gap: 14px;
+    font-family: var(--font); text-align: left;
+    transition: background var(--tr);
+  }
+
+  .article-trigger:hover, .article-item.open .article-trigger { background: var(--gray-50); }
+
+  .article-num {
+    font-size: 10px; font-weight: 800; color: var(--red);
+    min-width: 20px; padding-top: 3px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .article-trigger-main { flex: 1; }
+
+  .article-name {
+    font-size: 13px; font-weight: 700; color: var(--gray-800);
+    line-height: 1.4; margin-bottom: 5px;
+  }
+
+  .article-item.open .article-name { color: var(--red-dark); }
+
+  .article-meta {
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+
+  .article-badge {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+    padding: 2px 8px; border-radius: 20px;
+    background: var(--gray-100); color: var(--gray-600);
+  }
+
+  .article-badge.difficulty { background: rgba(232,34,42,0.08); color: var(--red-dark); }
+
+  .article-chevron {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 1.5px solid var(--gray-200);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+    color: var(--gray-400);
+    transition: transform var(--tr), background var(--tr), border-color var(--tr);
+  }
+
+  .article-chevron svg { width: 11px; height: 11px; }
+  .article-item.open .article-chevron { transform: rotate(45deg); background: var(--red); border-color: var(--red); color: white; }
+
+  .article-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1); }
+
+  .article-body-inner { padding: 4px 18px 20px 52px; }
+
+  .article-summary {
+    font-size: 13px; color: var(--gray-600); line-height: 1.72;
+    margin-bottom: 16px;
+  }
+
+  .article-read-link {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 12px; font-weight: 700; color: var(--red);
+    text-decoration: none; letter-spacing: 0.03em;
+    transition: opacity var(--tr);
+  }
+
+  .article-read-link:hover { opacity: 0.75; }
+  .article-read-link svg { width: 13px; height: 13px; }
+
+  /* VIDEO LIST */
+  .video-list { display: flex; flex-direction: column; gap: 32px; }
+
+  .video-item {}
+
+  .video-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--black);
+  }
+
+  .video-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  .video-wrap video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+    display: block;
+    background: var(--black);
+  }
+
+  /* PLACEHOLDER */
+  .placeholder { padding: 48px 40px; background: var(--gray-50); border: 1.5px dashed var(--gray-200); border-radius: var(--radius); text-align: center; }
+  .placeholder-icon { font-size: 32px; margin-bottom: 12px; }
+  .placeholder-title { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 6px; }
+  .placeholder-sub { font-size: 12px; color: var(--gray-400); }
+
+  /* MOBILE */
+  @media (max-width: 700px) {
+    .burger { display: flex; }
+    .sidebar {
+      position: fixed; top: 56px; left: 0;
+      height: calc(100vh - 56px); z-index: 150;
+      transform: translateX(-100%);
+      transition: transform var(--tr);
+      box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .page-hero { padding: 32px 24px 28px; }
+    .page-body { padding: 28px 24px 48px; }
+    .intro-row { flex-direction: column; gap: 4px; }
+    .intro-label { min-width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <img src="https://kadzama.ru/include/kadzama_template/i/logo-2020w.png" alt="KADZAMA">
+  <div class="topbar-sep"></div>
+  <span class="topbar-title">Методичка · Отдел продаж</span>
+  <button class="burger" id="burger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<div class="layout">
+
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+      <div class="sidebar-label">Разделы</div>
+      <button class="nav-item active" data-page="intro"><span class="nav-num">01</span>Введение</button>
+      <button class="nav-item" data-page="interaction"><span class="nav-num">02</span>Взаимодействие</button>
+      <button class="nav-item" data-page="basic"><span class="nav-num">03</span>Ключевой ассортимент</button>
+      <button class="nav-item" data-page="mid"><span class="nav-num">04</span>Психология мышления клиентов</button>
+      <button class="nav-item" data-page="advanced"><span class="nav-num">05</span>Расширяем знания</button>
+      <button class="nav-item" data-page="links"><span class="nav-num">06</span>Продаём бизнес-решения</button>
+      <button class="nav-item" data-page="technologist"><span class="nav-num">07</span>Мышление технолога</button>
+      <button class="nav-item" data-page="materials"><span class="nav-num">08</span>Полезные материалы</button>
+      <button class="nav-item" data-page="rop-materials"><span class="nav-num">09</span>Полезные материалы для РОПа</button>
+    </div>
+  </nav>
+
+  <div class="content" id="content">
+
+    <!-- 01 Введение -->
+    <div class="page active" id="page-intro">
+      <div class="page-hero">
+        <h1 class="page-title">Введение: <span>роль продавца в компании и её ценности</span></h1>
+      </div>
+      <div class="page-body">
+        <div class="ia-wrap">
+          <div class="ia-item">
+            <button class="ia-trigger">
+              👋 Приветствие от генерального директора
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="video-wrap">
+                  <video controls playsinline preload="metadata">
+                    <source src="https://fs.getcourse.ru/fileservice/file/download/a/126448/sc/290/h/be12d1546fca483d6526fe9ab3d2f26f.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+        <div class="doc-links">
+          <a class="doc-link" href="https://docs.google.com/document/d/1C6McKDuk1ywFuQjlqYaCVZqinpcmKG3xvx0iBxrOh1M/edit?usp=sharing" target="_blank" rel="noopener">
+            <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+            <span>Должностная инструкция специалиста ОП<span class="doc-link-sub">Google Документы · открыть →</span></span>
+          </a>
+          <a class="doc-link" href="https://docs.google.com/document/d/1cxkyWtMha4qLVhTJkPmirhJlwtUhBifJyiktzLoIAb0/edit?tab=t.0#heading=h.zc2kxsil9uze" target="_blank" rel="noopener">
+            <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+            <span>Стратегия отдела продаж 2026<span class="doc-link-sub">Google Документы · открыть →</span></span>
+          </a>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Inline accordions -->
+        <div class="ia-wrap">
+
+          <!-- Хартия -->
+          <div class="ia-item">
+            <button class="ia-trigger">
+              📜 Хартия команды
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <p class="charter-intro">На одном из корпоративных тренингов команда сформулировала свои правила поведения и зафиксировала их в «Хартию» — это наша договоренность о том, как мы действуем и каких ценностей придерживаемся.</p>
+                <div class="charter-list">
+                  <div class="charter-item"><span class="charter-num">1</span><span class="charter-text">Мы — команда авторов. Это значит, что мы сами творим свой успех и успех компании, принимаем на себя ответственность за любой личный опыт.</span></div>
+                  <div class="charter-item"><span class="charter-num">2</span><span class="charter-text">Клиент — наш друг и партнёр. Мы помогаем ему решать его задачи и становиться лучше, а он, в свою очередь, делает то же самое для нас. Сотрудничество — путь к взаимному выигрышу.</span></div>
+                  <div class="charter-item"><span class="charter-num">3</span><span class="charter-text">Принимай решение без спешки на основе консенсуса, изучив все возможные альтернативы. Внедряя принятое решение — не медли.</span></div>
+                  <div class="charter-item"><span class="charter-num">4</span><span class="charter-text">Принимай управленческие решения с учётом долгосрочной перспективы, даже если это наносит ущерб краткосрочным финансовым целям.</span></div>
+                  <div class="charter-item"><span class="charter-num">5</span><span class="charter-text">Наша команда не приемлет: ложь в корыстных целях; сокрытие важной информации; воровство в любом виде; промышленный шпионаж; разглашение корпоративной тайны; сотрудничество с конкурентами без согласования; систематическое неуважительное отношение к клиентам и сотрудникам.</span></div>
+                  <div class="charter-item"><span class="charter-num">6</span><span class="charter-text">Каждый имеет право на одну серьезную ошибку и на прощение — при условии, что признаёт и исправляет её, а также минимизирует или устраняет нанесённый ущерб.</span></div>
+                  <div class="charter-item"><span class="charter-num">7</span><span class="charter-text">При постановке новой задачи / подаче идеи — выслушай подающего и его аргументы. Оценивается не идея как «хорошая» или «плохая», а её потенциальный результат как «желаемый» или «нежелаемый».</span></div>
+                  <div class="charter-item"><span class="charter-num">8</span><span class="charter-text">При обсуждении идеи будь готов к критике и к защите позиции. Если аргументы другой стороны сильнее — довериться коллеге. Если решение оказалось неудачным — не говорить «я же говорил», а принять опыт и двигаться дальше.</span></div>
+                  <div class="charter-item"><span class="charter-num">9</span><span class="charter-text">«Кто виноват» — плохой вопрос. «Как решить сложившуюся задачу и не допустить подобной промашки в будущем» — хороший вопрос. Не ищи виноватых — ищи решения.</span></div>
+                  <div class="charter-item"><span class="charter-num">10</span><span class="charter-text">«Почему задача не решена?» — плохой вопрос. «Что тебе нужно для решения этой задачи?» — хороший вопрос.</span></div>
+                  <div class="charter-item"><span class="charter-num">11</span><span class="charter-text">Поражений не существует — есть только обратная связь. Нет неудач, есть только опыт. Полученный опыт необходимо осмыслить и нести с собой.</span></div>
+                  <div class="charter-item"><span class="charter-num">12</span><span class="charter-text">Нет проблем — есть задачи. Когда мы превращаем проблему в задачу, мы инстинктивно ищем решения.</span></div>
+                  <div class="charter-item"><span class="charter-num">13</span><span class="charter-text">Говорить на языке решений, а не на языке проблем — как с клиентами, так и с коллегами.</span></div>
+                  <div class="charter-item"><span class="charter-num">14</span><span class="charter-text">У любой задачи есть только один ответственный, даже если задача решается коллективно.</span></div>
+                  <div class="charter-item"><span class="charter-num">15</span><span class="charter-text">Любая задача решаема и путей решения как минимум 10. Классифицируй задачу по принципу: важная-срочная, важная-несрочная, неважная-срочная, неважная-несрочная.</span></div>
+                  <div class="charter-item"><span class="charter-num">16</span><span class="charter-text">Любая коммуникация должна завершиться качественной обратной связью. В этом смысл коммуникации.</span></div>
+                  <div class="charter-item"><span class="charter-num">17</span><span class="charter-text">То, что очевидно тебе, не обязано быть очевидно коллеге или клиенту. Карта — ещё не территория. Находи нужные слова и убедись, что ваши карты совпали.</span></div>
+                  <div class="charter-item"><span class="charter-num">18</span><span class="charter-text">Каждый имеет право на отдых от рабочих задач в свободное время. Важно заранее уведомлять команду: когда уходишь в отпуск, готов ли выходить на связь и по каким каналам.</span></div>
+                  <div class="charter-item"><span class="charter-num">19</span><span class="charter-text">У каждого действия есть позитивное намерение. Если тебе не понятно действие члена команды — не осуждай, а поговори и выясни позитивное намерение.</span></div>
+                  <div class="charter-item"><span class="charter-num">20</span><span class="charter-text">Смакуй позитивный опыт. Наслаждайся им. Похвали себя, а если видишь позитивный опыт сотрудника — похвали его. Скажи нет эмоциональной импотенции!</span></div>
+                  <div class="charter-item"><span class="charter-num">21</span><span class="charter-text">Ни один коллега тебе ничего не должен. Умей договариваться и уважать рабочее и личное время сотрудников.</span></div>
+                  <div class="charter-item"><span class="charter-num">22</span><span class="charter-text">Не давай обещаний, которые не намерен сдержать. Адекватная оценка своей зоны ответственности повышает эффективность принятых решений.</span></div>
+                  <div class="charter-item"><span class="charter-num">23</span><span class="charter-text">То, что может быть улучшено — должно быть улучшено. Любое, даже маленькое нововведение с целью ускорения или облегчения бизнес-процессов ведёт нас вперед.</span></div>
+                  <div class="charter-item"><span class="charter-num">24</span><span class="charter-text">Если два человека или группа не могут договориться об изменениях в работе, вопрос выносится на обсуждение команды.</span></div>
+                  <div class="charter-item"><span class="charter-num">25</span><span class="charter-text">Проводить личное время с командой — индивидуальный выбор. Мы верим, что совместный досуг укрепляет командный дух, но не осуждаем тех, кто предпочитает иной формат.</span></div>
+                  <div class="charter-item"><span class="charter-num">26</span><span class="charter-text">Спрашивай, если что-то не понятно.</span></div>
+                  <div class="charter-item"><span class="charter-num">27</span><span class="charter-text">Критикуешь — предлагай.</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Социальные сети -->
+          <div class="ia-item">
+            <button class="ia-trigger">
+              🔗 Социальные сети
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <p style="font-size:13px; color:var(--gray-600); margin-bottom:16px; line-height:1.7;">Подписывайтесь на наши каналы — здесь мы делимся полезными материалами и новостями компании.</p>
+                <div class="social-grid">
+                  <a class="social-link" href="https://t.me/kadzama_ru" target="_blank" rel="noopener"><span class="social-dot"></span><span>Telegram<span class="social-sub">@kadzama_ru</span></span></a>
+                  <a class="social-link" href="https://vk.com/kadzama_ru" target="_blank" rel="noopener"><span class="social-dot"></span><span>VK<span class="social-sub">kadzama_ru</span></span></a>
+                  <a class="social-link" href="https://rutube.ru/channel/40139121/" target="_blank" rel="noopener"><span class="social-dot"></span><span>RUTUBE<span class="social-sub">канал KADZAMA</span></span></a>
+                  <a class="social-link" href="https://youtube.com/@kadzama_ru" target="_blank" rel="noopener"><span class="social-dot"></span><span>YouTube<span class="social-sub">@kadzama_ru</span></span></a>
+                  <a class="social-link" href="https://www.instagram.com/kadzama_ru" target="_blank" rel="noopener"><span class="social-dot"></span><span>Instagram<span class="social-sub">@kadzama_ru</span></span></a>
+                  <a class="social-link" href="https://t.me/CacaoHype" target="_blank" rel="noopener"><span class="social-dot"></span><span>TG-чат CacaoHype<span class="social-sub">@CacaoHype</span></span></a>
+                </div>
+                <p class="social-note">Подписка обязательна ‼️</p>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /ia-wrap -->
+      </div>
+    </div>
+
+    <!-- 02 Взаимодействие -->
+    <div class="page" id="page-interaction">
+      <div class="page-hero">
+        <h1 class="page-title">Взаимодействие <span>с коллегами по отделу и работа в Битрикс24</span></h1>
+      </div>
+      <div class="page-body">
+        <div class="ia-wrap">
+          <div class="ia-item">
+            <button class="ia-trigger">
+              📄 Регламент общения в общем чате отдела продаж
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <p class="content-copy">Чат отдела продаж преимущественно используется для публикации ежедневных отчетов специалистов по продажам и постановки задач от РОПа на день. Обсуждение общих оперативных вопросов в течении дня возможно, но сдержанно чтобы не перегружать рабочий фон отвлекающими сообщениями.</p>
+                <p class="content-copy"><strong style="color:var(--gray-800)">Важно:</strong></p>
+                <ul class="content-list">
+                  <li>Все обсуждения конкретных сделок происходят в отдельном чате, который создается инициатором самостоятельно.</li>
+                  <li>Если хотим обратиться к кому-то из участников чата, то обращаемся к нему выделив его через +</li>
+                  <li>
+                    Если информация содержит обращение к конкретному человеку, то прочитав ее необходимо:
+                    <ul class="content-sublist">
+                      <li>Поставить реакцию “палец вверх” если информация принята и адресат с ней согласен.</li>
+                      <li>Если есть возражение, то необходимо ответить цитировать исходное сообщение.</li>
+                    </ul>
+                  </li>
+                  <li>Если сообщение осталось без реакции “лайк” или ответа, то сообщение считается непрочитанным или молчаливое игнорирование.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="ia-item">
+            <button class="ia-trigger">
+              🌚 Вечерний отчёт специалистов ОП
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <p class="content-copy"><strong style="color:var(--gray-800)">Цель:</strong></p>
+                <ul class="content-list">
+                  <li>РОП понимает что рабочий день продавца закончен</li>
+                  <li>РОП понимает числовые результаты деятельности специалиста по продажам и готовится к утренней планерке на основе полученных данных</li>
+                  <li>РОП получает информацию о событиях дня и умозаключениях продавца о проделанной работе и готовится к утренней планерке на основе полученных данных</li>
+                </ul>
+                <p class="content-copy"><strong style="color:var(--gray-800)">Форма отправки:</strong> через Bitrix24 - в чат отдела продаж</p>
+                <p class="content-copy"><strong style="color:var(--gray-800)">Структура:</strong> по единому шаблону (ниже)</p>
+                <p class="content-copy"><strong style="color:var(--gray-800)">Срок отправки:</strong> Сразу по завершению рабочего дня, но не позднее 21:00 по московскому времени</p>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">Пример отчета:</strong></p>
+                <div class="report-card">
+                  <div class="report-block">
+                    <div class="report-label">🟢 (ключевые цифровые показатели)</div>
+                    <p class="report-text">Поступления: 2 000 000 \ 11 500 000 (накопленные поступления за месяц \ план продаж)
+ЦА 3 \ 64 (количество добавленных клиентов получивших статус ЦА за день \ общее количество клиентов со статусом ЦА закрепленных за продавцом)
+Назначено встреч 2 \ 10 (количество встреч назначенных за рабочий день \ накопленное количество назначенных встреч за текущий месяц)</p>
+                  </div>
+                  <div class="report-block">
+                    <div class="report-label">🟡 (инсайты и успехи)</div>
+                    <p class="report-text">Связаться с ИП Петров и пригласить на встречу не получилось, он не берет трубку завтра продолжу дозваниваться. Разобрал все зависшие сделки в стадии получить обратную связь. Купил новые наушники и клиенты стали лучше меня слышать и перестали жаловаться. Наконец-то продвинул сделку с ООО Рога завтра жду от них аванс 50% (даем обратную связь по поставленным задачам от РОПа на утренней планерке. Сообщаем значимые события и инсайты дня)</p>
+                  </div>
+                  <div class="report-block">
+                    <div class="report-label">🔴 (трудности, запросы и вопросы)</div>
+                    <p class="report-text">До сих пор не прислали компенсацию по командировке. Клинт ООО Копыта требует возврат, как дальше с ним быть не знаю. Не понимаю смысла автоматизации с напоминанием связаться с клиентом, хочу обсудить упразднение этой функции. Нашел битую ссылку на странице kadzama.ru (обозначаем вопросы требующие внимания РОПа или обсуждения всем коллективом)</p>
+                  </div>
+                </div>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">Пример слабого отчета:</strong></p>
+                <div class="report-card">
+                  <div class="report-block">
+                    <div class="report-label">🟢</div>
+                    <p class="report-text">Поступления 1 000 000 \1 500 000
+ЦА 10\14
+Назначено встреч 3\10</p>
+                  </div>
+                  <div class="report-block">
+                    <div class="report-label">🟡</div>
+                    <p class="report-text">День прошел продуктивно. Обработал много заказов. (Обобщения и нет конкретики. Эти данные не несут в себе содержание и воспринимаются как ИБД)</p>
+                  </div>
+                  <div class="report-block">
+                    <div class="report-label">🔴</div>
+                    <p class="report-text">Сложно сделка продвигается с одним иностранным клиентом. (нет понимания с каким клиентом сложности, в чем эти сложности заключаются, почему их не решить самостоятельно и требуется обратить на это внимание руководства)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ia-item">
+            <button class="ia-trigger">
+              🌞 Утренняя планёрка ОП
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <p class="content-copy"><strong style="color:var(--gray-800)">Цель:</strong></p>
+                <ul class="content-list">
+                  <li>РОП убеждается, что все сотрудники отдела продаж готовы приступить к исполнению рабочих обязанностей и находятся в рабочем состоянии,</li>
+                  <li>Обсудить накопившиеся оперативные вопросы и новости</li>
+                  <li>РОП ставит цели на день перед командой и заряжает эмоционально на продуктивный рабочий день</li>
+                </ul>
+                <p class="content-copy"><strong style="color:var(--gray-800)">Формат:</strong> Видео конференция в чате отдела продаж Bitrix24 Камеры у всех включены.</p>
+                <p class="content-copy"><strong style="color:var(--gray-800)">Время проведения:</strong> Ежедневно в 9:00 по московскому времени. Продолжительность не более 30 минут. Собрание начинается в момент когда команда в сборе.</p>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">Структура собрания:</strong></p>
+                <ul class="content-list">
+                  <li>Собрание проводится на основе вечерних отчетов специалистов по продажам за предыдущий день.</li>
+                  <li>Зеленая зона обсуждаются результаты по показателям обозначенным в отчете прошлого дня</li>
+                  <li>Желтая зона коллективное обсуждение инсайтов и успехов на основе информации из отчета прошлого дня Распространить знания среди команды и лучшие практики. Совместно порадоваться успехам. Понять где находится фокус внимания у продавца</li>
+                  <li>Красная зона Ответы на проблемы и запросы обозначенные вечернем в отчете специалистом по продажам</li>
+                </ul>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">Приоритеты на день</strong></p>
+                <p class="content-copy">РОП формулирует установку на день пред специалистом по продажам. Специалист четко подтверждает, что принял или не принял установку на день. В вечернем отчете докладывает о результатах по поставленным задачам в желтой или красной зоне</p>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">Резюме РОПа по итогам планерки</strong></p>
+                <p class="content-copy">После утренней планерки РОП пишет текстовое резюме в чат Отдела продаж и дублирует договоренности и решения с командой, дублирует задачи на день с указанием ответственных лиц через +. Команда ставит реакцию “лайк” если с текстом резюме согласны и принято в работу. Если в резюме допущена ошибка или нет желание подтверждать договоренности и задачи, то необходимо ответить на сообщение с резюме через цитирование и изложение своей позиции. Оставить резюме без реакции или ответа нельзя. Считается грубым нарушением и влечет за собой дисциплинарную ответственность.</p>
+              </div>
+            </div>
+          </div>
+          <div class="ia-item">
+            <button class="ia-trigger">
+              🖥 Инструкция по старту и завершению рабочего дня в Битрикс24
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <p class="content-copy"><strong style="color:var(--gray-800)">Вводная</strong></p>
+                <p class="content-copy">Начало дня, постановка его на паузу в перерыве и его завершение выполняется при использовании специальной кнопки в Б24 и нужно для того, чтобы система и руководитель были оповещены о том, что Вы начали рабочий день, и распределяли сделки между сотрудниками, которые приступили к работе и не находятся на перерыве. То есть, начав рабочий день, Вы сигнализируете о готовности выполнять свою работу как системе, так и руководителю. Также, для руководителя это инструмент, который позволяет определить, сколько времени сотрудник вложил в работу, в котором часу начал, в котором - закончил и сколько времени уделил перерыву.</p>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">Общая инструкция</strong></p>
+
+                <div class="guide-step">
+                  <img class="guide-image" src="https://cdn-ru.bitrix24.ru/b1547901/landing/bd5/bd543bdad4f426011ec2bb790f571a1f/Start_End_01_2x.jpg" alt="Начало рабочего дня в Битрикс24">
+                  <div class="guide-step-title">Начало рабочего дня</div>
+                  <p class="content-copy">Перед началом рабочего дня необходимо нажать на кнопку, указанную на скриншоте, а далее - на кнопку “Начать рабочий день.”</p>
+                </div>
+
+                <div class="guide-step">
+                  <img class="guide-image" src="https://cdn-ru.bitrix24.ru/b1547901/landing/61e/61e66c171cc52e3b8d3081e5cc8739f3/Start_End_02_2x.jpg" alt="Перерыв в Битрикс24">
+                  <div class="guide-step-title">Перерыв</div>
+                  <p class="content-copy">С перерывом всё так же просто: нужно нажать на ту же кнопку, а далее - на кнопку “Перерыв”.</p>
+                </div>
+
+                <div class="guide-step">
+                  <img class="guide-image" src="https://cdn-ru.bitrix24.ru/b1547901/landing/453/453282712e89609f14de0c29fd82eb6a/Start_End_03_2x.jpg" alt="Продолжение рабочего дня в Битрикс24">
+                  <div class="guide-step-title">Продолжение рабочего дня</div>
+                  <p class="content-copy">Когда Вы готовы завершить перерыв и продолжить свой рабочий день, необходимо вновь нажать ту же кнопку и нажать “Продолжить.”</p>
+                </div>
+
+                <div class="guide-step">
+                  <img class="guide-image" src="https://cdn-ru.bitrix24.ru/b1547901/landing/a87/a87a1228b6f0ae7a9812206a8c627e68/Start_End_04_2x.jpg" alt="Завершение рабочего дня в Битрикс24">
+                  <div class="guide-step-title">Завершение рабочего дня</div>
+                  <p class="content-copy">Теперь, когда Вы отработали 8 часов, выполнили запланированные на сегодня задачи и запланировали даты и время выполнения новых задач, можно завершить рабочий день. Нажать всё ту же кнопку, а далее - “Завершить рабочий день.”</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ia-item">
+            <button class="ia-trigger">
+              🌪 Работа с воронками в Битрикс24
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="placeholder">
+                  <div class="placeholder-icon">📝</div>
+                  <div class="placeholder-title">Материал в разработке</div>
+                  <div class="placeholder-sub">Материал будет добавлен позже</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ia-item">
+            <button class="ia-trigger">
+              🧮 Сегментация клиентской базы
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="report-card">
+                  <pre class="report-text content-pre">Цель сегментации: Собрать данные о компании и контактах связанных с компанией чтобы определить, является ли клиент целевой аудиторией (ЦА) и какой у него потенциал к сделкам на текущий момент. Благодаря сегментации и подробно заполненным полям в карточках Компания и Контакт специалист по продажам принимает решение о дальнейшей стратегии взаимодействия с клиентом Читай Механизм продаж чтобы узнать подробнее
+
+Когда проводится: Сегментация начинается с момента первого появления компании и связанных с нею контактов в Битрикс 24. Сегментация проводится всякий раз когда происходит контакт с компанией, контактом связанным с компанией или изучаются открытые источники данных в интернете. На основании полученных данных обновляются данные в карточках Компания и Контакт если обнаружены изменения или дополнения.
+
+
+Сущность Компания
+
+Ответственный
+Поле показывает за кем закреплена Компания или Контакт. Если компания обозначена статусом ЦА, то все входящие обращения от этой компании и ее контактов необходимо перевести на ответственного. Если статуса ЦА нет, то компанию можно сегментировать и если по итогам сегментации становится ясно что это ЦА, то через РОПа можно запросить смену Ответственного за компанию на того кто инициировал присвоение статуса ЦА.
+
+Тип компании
+Это поле позволяет отделить прямых клиентов от остальных  контрагентов компаний заведенных в базу данных. Сортировка происходит по 3 типам:
+
+Прямой клиент - компании которые покупают товары и услуги нашей компании для применения их в собственном бизнесе
+Посредник - компания которая перепродает товары и услуги нашей компании конечным пользователям
+Поставщик - компания которую продает товары и услуги нам. Наши товары и услуги этому типу компаний неинтересны.
+Компания активна
+Поле позволяет фильтровать компании которые активны и ведут профильную коммерческую деятельность от компаний, которые перестали работать или кардинально сменили профиль деятельности. По умолчанию всегда стоит ДА, означает что компания ведет коммерческую деятельность в профильных для нас рынках. Изменить на значение НЕТ в случае если компания перестала существовать или кардинально сменила профиль деятельности.
+
+ИНН / Реквизиты
+При заполнении ИНН компании из РФ или стран ЕАС автоматически заполняются реквизиты компании для дальнейшего выставления договоров, счетов и т.д. и становится ясно что предприятие реально существует.
+⚠️ Важно:
+Если клиент не помнит свой ИНН, то необходимо получить от клиента название компании и по какому адресу зарегистрирована. После самостоятельно найти предприятие в интернете по названию и адресу и сверить значения с теми которые сообщил клиент. Если клиент скрывает данные и уклоняется от ответа, то это считается признаком того что это могут быть конкуренты или клиенты без серьезных намерений и возможностей.
+
+Название
+Поле используется в процессах автоматизации и идентификации. Порядок заполнения строго в следующей последовательности - Правовая форма в сокращенном виде и название. ИП Иванов Иван Иванович или ООО “Шоколатье” или ЗАО “НПО “Колхоз имени Ленина”. Ориентиром может служить название из предыдущего поля ИНН 
+
+Связанные компании
+Если у компании есть несколько юридических лиц, то необходимо отметить их в этом поле чтобы чтобы образовалась связь между ними, и при анализе клиента в будущем можно было учитывать все сделки и активности по группе компаний
+
+Сайт и Соц. сети
+Указать официальный сайт компании добавить ссылки на социальные сети: Telegram/Instagram/ВКонтакте/YouTube/TikTok и т.д. Сайт и социальные сети являются основным источником данных для сегментации. В большинстве случаев можно получить исчерпывающие данные для качественной сегментации изучив сайт и соц. сети. Поле портрет клиента и другие поля эффективно заполнять на основе данных полученных из раздела “О компании”, “О нас”, “Наша миссия”, “Каталог”, “Продукция” и т.п. Если не удалось получить адрес сайта в разговоре, то можно искать в интернете данные на основе Названия, ФИО, телефона или почты. например бывает достаточно ввести в поисковую строку номер телефона и поиск может выдать страницу в ВК с ассортиментом компании.
+⚠️ Важно:
+Перед первичным контактом с клиентом необходимо подробно изучить сайт и социальные сети чтобы построить план разговора и сформулировать конкретные вопросы и предложения для клиента.
+
+Телефон
+Заполняется по данным с сайта и социальных сетей. Допускается оставить поле незаполненным если у компании есть контакты с заполненным полем телефон. Если телефонный номер  совпадает с личными номером у прикрепленного контакта, то поле следует очистить от данных, оставив его пустым.
+
+E-mail
+Заполняется по данным с сайта и социальных сетей. Допускается оставить поле незаполненным если у компании есть контакты с заполненным полем e-mail. Если e-mail совпадает с личным e-mail у прикрепленного контакта, то поле следует очистить от данных, оставив его пустым.
+
+Целевая аудитория:
+Отметка Да позволяет закрепить компанию за тем кто является ответственным за нее. И обозначить ее как компания на которую распространяется фокус внимания специалиста по продажам. Выявление компании со статусом Целевая аудитория является ключевой идей механизма продаж. Читай Механизм продаж если хочешь узнать подробнее как с этим работать
+
+Целевая аудитория (ЦА) это компания которая на 100% совпадает по критериям описанным ниже. Возможны обоснованные исключения по согласованию с РОПом.
+
+1. Компании которые ведут или планируют вести бизнес в следующих сферах:
+
+Плитка, конфеты, батончики, фигурки
+Пекарни
+Кондитерские
+Орехово-шоколадные пасты
+Переработчики замороженной ягоды и фруктов
+Обжарщики кофе
+Мороженщики
+Драже
+2. Годовой оборот компании
+От 50 млн. рублей до 500 мл. рублей включительно. Необходимо проверить выручку компании через интернет, в диалоге с клиентом или посчитать предполагаемый объем на основе средней цены за изделия умноженные на объем производства. Меньше 50 мл. рублей говорит нам о том что у клиента недостаточно оборотных средств в бизнесе чтобы совершать дорогие покупки. Если до 50 мл. рублей недостает 5-7 мл. рублей, то можно сделать исключение если есть понимание что клиент растет.
+50 - 150 мл. рублей У клиента появились деньги на покупку оборудования от 1 мл. рублей. Решения о покупке принимает как правило собственник. Собственник активно принимает участие в операционной деятельности и может выступать эксплуатантом оборудования.
+150 - 250 мл. рублей. Решения могут делегироваться на руководителей соответствующего направления. Собственник больше фокусируется на стратегии, но внимательно контролирует принимаемые решения подчиненных, влияя на их решение.
+250 - 500 мл. рублей Вероятно компания уже имеет группу топ менеджеров, когда ответственность распределена и сферы принятия решений также поделены между руководителями.
+Свыше 500 мл. рублей говорит о том что у клиента большой бизнес и вероятно на постоянной основе его интересует оборудование с большей производительностью чем есть в нашем предложении.
+3. Объем потребления сырья
+Использует от 1 до 5 тонн в месяц шоколада и/или ореховых паст / жировых начинок это отличный показатель который говорит нам что наше оборудование может помочь клиенту Снизить себестоимость или открыть новые возможности для заработка.
+Сложные примеры:
+клиент с переработкой 30 тонн в месяц шоколада как правило имеет запросы на более производительное оборудование чем у нас. Не подходит, но в случае пограничных показателей можно рассмотреть положительно.
+клиент который производит 40 тонн тортов в месяц и использует 1 тонну шоколада и 500 кг ореховых паст для приготовления своих десертов будет заинтересован в производительности нашего оборудования. Подходит.
+Клиент, который перерабатывают меньше 1 тонны шоколад и\или ореховых паст в месяц как правило не готов покупать дорогостоящее оборудование по причине низкой скорости окупаемости оборудования и как правило не располагают достаточным объемом средств для покупки. Не подходит, но в случае пограничных показателей можно рассмотреть положительно
+4. Территория присутствия
+Компания зарегистрирована или осуществляет деятельность на территории Евразийского экономического союза (ЕАС):
+Россия, Беларусь используется стандартный договор поставки
+Казахстан, Армения, Киргизия - требуют специальной подготовки документов для отгрузки. Читай инструкцию по оформлению сделка в страны ЕАС
+
+Клиенты из других стран через РОПа передаются в подразделение KADZAMA DOO С клиентами не входящих в ЕАС сложно работать из-за необходимости подготовки ВЭД документации, сложности в отправки и получение денежных средства.
+
+
+
+Потенциал клиента к сделкам
+Умение сегментировать компанию по потенциалу к сделкам в совокупности с пониманием статуса ЦА позволяет сортировать сделки клиента по воронкам и фокусироваться продавцу на наиболее перспективных делах и сделках
+
+Высокий - Есть деньги и есть цели
+Клиент готов к инвестициям и имеет понимание, зачем ему оборудование. Готов действовать. Высокая вероятность сделки. Все сделки с таким потенциалом вне зависимости от ЦА находятся в воронке Продажи РФ
+Средний - Есть деньги, но нет цели ИЛИ Нет денег, но есть цель. Таких клиенты как правило неохотно продвигаются по воронке продаж, постоянно откладывают решения, встречи и разговоры потому что у них или плохо сформулирована цель в которую они сами до конца не верят или они не понимают где взять деньги на покупку. Сделки клиентов со средним потенциалом мы не держим в воронке продажи, а распределяем их между воронкой «отложенные» и «вызвать доверие» в зависимости от статуса ЦА
+ЦА со средним потенциалом находятся в воронке вызвать доверие - это стратегические клиенты которые находятся в фокусе внимания специалиста по продажам, который в независимости от проявленного интереса клиента к нам осуществляет с ним регулярные контакты с целью помочь клиенту сформулировать четче цель и найти необходимые деньги. Другими словами здесь продавец тратит силы на то чтобы повысить потенциал клиента к сделке до потенциала Высокий. Задачи: помочь сформулировать цель, подсветить инструменты покупки.
+Не ЦА с средним потенциалом находятся в воронке отложенные - это клиенты которые как правило что-то хотели купить и их вели в воронке продаж с высоким потенциалом. Но по ходу общения выяснилось, что намерения и возможности клиента не настолько сильны чтобы в обозримом будущем сделка состоялась. Так как это не Целевая аудитория, то времени на их проработку нет, но есть желание сделать еще несколько касаний в будущем чтобы вернуться к их запросу и успешно доделать сделку или окончательно
+Низкий - нет целей и нет денег. Клиенты с таким потенциалом не имеют сделок в воронках и считаются неперспективными в ближайшем будущем. С такими клиентами планируется проведение повторных сегментации с целью обновить данные по ним и понять вырос ли потенциал к сделкам.
+ЦА с низким потенциалом к сделкам - например это клиент который имеет хороший и развивающийся бизнес и клиент проинвестировал много денег в обновление своего оборудования, которое требуется запускать и окупать в ближайший год-два. Или клиент, который испытывает стагнацию в бизнесе и он занят реструктуризацией и поиском возможностей снизить свои расходы. Таких клиентов необходимо регулярно сегментировать чтобы не упустить момента когда они будут снова открыты к сделкам
+Не ЦА с низким потенциалом к сделкам - это клиенты у которых нет целей, средств и возможностей к крупным сделкам. Требуется периодически сегментировать для обновления статуса ЦА и потенциала к сделкам если есть время
+
+Подробнее о работе с воронками продаж читай в Механизме продаж
+
+Участник KADZAMA КЛУБ
+Указать оформлена ли подписка KADZAMA КЛУБ. Клиенты участвующие в KADZAMA КЛУБ это клиенты которые настроены на развитие и лояльны к бренду, потому что они заплатили собственные средства за доступ к образовательную программе. Эти клиенты заслуживают особого внимания и стратегического партнерства с KADZAMA
+
+
+
+Годовой оборот компании
+Ключевой показатель при оценки компании прежде чем принять решение относится ли клиент к ЦА. 
+
+Как получить данные:
+Точная информация с помощью открытых баз данных в интернете
+Введите в поисковик (например, Яндекс): ИНН 77788823
+Откройте официальные источники: ФНС, Контур.Фокус, СПАРК, Rusprofile
+Найдите строку «Выручка за последний отчетный период» или другую похожую формулировку - данные за последний отчетный период будут являться значением.
+
+Косвенный расчёт на основе собранных данных через интервью:
+Сколько продукции клиент продаёт в месяц или год (в штуках или кг) Или сколько сырья в кг или тоннах он перерабатывает месяц или год если не хочет отвечать сколько он продает
+По какой цене реализует продукцию и определить среднюю отпускную цену
+
+Пример расчета:
+Клиент сообщил что покупает в среднем около 1000 кг шоколада в месяц. Значит в среднем он и продает 1000 кг в месяц в виде готовой продукции. Изучив ассортимент и цены приходим к выводу что средний вес изделий около 100 гр., а средняя цена за изделие 250 руб.
+→ 1000 кг \ 0,100 кг * 250 р.шт. * 12 мес = 30 000 000 выручки в год.
+
+
+Каналы сбыта
+Выберите каналы сбыта из предложенного списка. Понимание каналов сбыта дает возможность формулировать более точную стратегию при выстраивании отношений с клиентом
+
+Собственная розница клиенты с этим каналом имеют хороший запас по маржинальности, поэтому фокусируются на качестве продукта и его оригинальности.
+
+Дистрибуция в федеральные сети этот канал сбыта требует высокой производительности и снижения себестоимости
+
+Дистрибуция в мелкую розницу клиенты из мелкой розницы требуют высокое качество получаемого продукта и ее уникальность. Похож на канал с собственной розницей, но маржинальность ниже т.к. заработать еще должен собственник мелкой розницы на перепродаже.
+
+Маркетплейсы схож с каналом дистрибуция в мелкую розницу. Отличие в том что здесь большой акцент смещается на пригодность продукта к хранению и тяжелыми логистическими условиями
+
+Интернет магазин и соц сети Аналогичный канал маркет плейсам. Часто бывает в паре с ними. Отличие в том что требуется дополнительно настроить логистику до покупателя и прием денег
+
+Фестивали и ярмарки Канал сбыта с очень легким входом и является признаком малого или незрелого бизнеса, потому что этот канал требует больших организаторских усилий чтобы торговать на коротком промежутке времени. Зрелые бизнесы стремятся к простым повторяемы процессам с прогнозируемым объемом сбыта.
+
+Продажи корпоративным заказчикам очень маржинальный бизнес в котором деньги клиенты платят вперед. Акцент в этом канале ставится на скорость выполнения заказа и качество внешнего вида в сочетании с возможностью персонализировать внешний вид продукта под требования заказчика. Качество сырья вторично и не является приоритетным
+
+Продажи под СТМ Канал с низкой маржинальностью т.к. требования к качеству и отпускной цене диктует заказчик, а не продавец. Наличие этого канала может говорить о незагруженных производственных возможностях или о зависимости от воли заказчика.
+
+
+
+Какие типы продуктов производит
+Выберите продукцию, которую выпускает компания. Эту информацию можно получить на сайте компании или в социальных сетях. Клиенту как правило приятно общаться с продавцом который не спрашивает «что вы производите», это повышает доверие клиента к продавцу. Если знать что производит компания, то можно строить стратегию продаж и предполагать потребности клиента.
+
+Фигурки и композиции из шоколада Продажи этой продукции происходят К Новому году и 8 марта. Клиенты с этим ассортиментом могу интересоваться формами и способами быстрой заливки в формы. Как правило этот ассортимент делается из недорогого шоколад или из дешевых глазурей. Акцент в продукте на визуальную составляющую
+
+Плитки шоколада Плитки бывают с акцентом на вкус и качество когда производитель пытается дистанцироваться от масс маркета и тогда важна качество сырья и такие клиенты могут рассматривать полный цикл переработки от боба до плитки. Или подарочные плитки с красивым барельефом и в красивой упаковке, тогда запрос к качеству сырья снижается и на первый план выходит оригинальная форма и упаковка
+
+Ореховые и жировые пасты Если клиент производит ореховую пасту и жировые начинки, то у него есть все необходимое оборудование чтобы производить шоколад. И наоборот - если клиент производит шоколад, то он может производить пасты на своем оборудовании. Производство ореховых паст также открывает возможности для производства конфет и батончиков если формовать их и обливать шоколадом
+
+Драже Очень простой технологический процесс состоящий из дражировочных баков и бака для плавления шоколада. Темперировать шоколад для дражирования не нужно, что дополнительно упрощает технологический процесс. Можно расширять ассортимент драже за счет использования жировых начинок в качестве центра
+
+Конфеты и Батончики С точки зрения технологии самые объемные линии, которые требуют приготовление начинки, формовки, обливки шоколадом, декорирование. С точки зрения бизнеса дает широкие возможности работы с себестоимостью и вкуса придумывая разные сочетания и формы подачи.
+
+Мороженое Самостоятельный рынок со своим продуктом для которого может быть нужен шоколад и ореховые пасты для создания новых вкусов и глазурей для мороженого
+
+Кондитерские изделия Это торты, пирожные, и другие сложносоставные кондитерские изделия состоящие из мусов, бисквитов кремов, глазурей, мармеладных и желейных начинок и т.д. Для этого сегмента продуктов шоколад и ореховые пасты могут служить в качестве ингредиентов и декоров для производимых изделий
+
+Выпечка В отличии от кондитерских изделий выпечка это изделия основа которых является тесто с последующем запеканием - Булки, Круассаны, Багеты, Хлеб в разных проявлениях. Для этого сегмента рынка шоколад и ореховые пасты требуются также для глазировки и начинок. Важно не путать этот сегмент с кондитерскими изделиями, потому что характер работы имеет отличия. Цеха с выпечкой это всегда печи и высокая температура в цехах, а при производстве кондитерских изделий есть цеха с кондиционером что необходимо для работы с шоколадом.
+
+Джемы и мармелады Переработка ягоды и фруктов составляет основу этого сегмента. Для расширения ассортимента производители готовы внедрить в ассортимент ореховые пасты в банках и дой паках или начать глазировать свой мармелад шоколадом
+
+Мастер-классы и дегустации в этом сегменте продуктом является процесс за участие в котором платит клиент. Это услуга и шоу и в зависимости от того какое шоу строят можно подобрать необходимый ассортимент оборудования.
+
+Ингредиенты
+Это шоколад и ореховые пасты, которые производятся в большой фасовке и продаются на предприятия производящие продукты питания. Как правило клиенты предъявляют высокие требования к производительности, потому что им необходимо получить необходимую себестоимость без потери качества за счет объемов производства.
+
+
+Расход шоколада и ореховых паст в месяц
+Показатель помогает понять какое оборудование может быть актуальным для клиента если мы знаем количество используемого шоколада и ореховых паст. Если клиент только планирует производить, то узнать с его слов предполагаемый объем потребления.
+
+&lt; - 100 кг. Очень маленький объем производства с ручным трудом. Оборудование как правило никакое не нужно для таких объемов. Перспективы для сделок низкие.
+100 - 1000 кг. Появляются первые потребности в оборудовании, но окупаемость инвестиции в оборудования попрежнему низкая, что затрудняет переговоры с клиентом.
+1000 - 5000 кг. Есть потребность в оборудовании, легко считать экономическую целесообразность покупки
+5000 - &lt; кг. Требуемый класс оборудования гораздо выше чем мы можем предложить, но мы бываем интересны таким клиентам для оснащения лаборатории или новых экспериментальных направлений 
+
+
+
+Какое профильное оборудование есть у клиента
+Укажите всё профильное оборудование, которое уже используется в производстве. Особенно ценная информация о наличии оборудования конкурентов потому что этой информации нет в истории сделок. Качественно заполненное поле позволяет понять какое еще оборудование можно продать в будущем, а где перспективы уже закрыты.
+
+✅ Хорошо:
+Меланжёр 85 KADZAMA, темперирующая машина Selmi 24 кг, Плав бак+глаз+ и тун 6 м от Дито
+
+❌ Плохо:
+  Есть оборудование для конфет и линия для плитки
+
+Портрет компании
+Опишите суть бизнеса, чем занимается компания, укажите важные детали которые помогут понять как работать с этой компанией. Информацию для заполнения этого поля можно найти на сайте клиента в разделах о компании, о нас, наша продукция и т.д. Соц.сети клиента также являются источником информации потому что через них компания транслирует свои ценности планы и достижения. Личная беседа с контактами компании является источником данных портрета.
+Чем занимается компания:
+
+✅ Хорошо:
+
+
+❌ Плохо:
+Клиент с 2021 года регулярно закупает оборудование для шоколадного производства (меланжеры, формы, виброоборудование).  Активно участвует в разработке дизайна форм, сталкивался с логистическими проблемами. Последние покупки: меланжер 7 кг (2024) и партии форм (2025).
+Тру Шоколад I Bean to bar | Шоколад с Урала
+Ранее брал АТМ в лизинг, взял формы и хочетк ним доз. насадку.
+
+
+
+Сущность Контакты
+
+
+Фамилия
+Позволяет четко идентифицировать контакт в структуре компании. Только имя Александр, Мария и т.д. чтобы наверняка понять о ком идет речь в этой компании. Или бывают дубли когда в компании 3 Александра и при входящем вызове непонятно какой именно Александр звонит вам.
+⚠️ Важно: Поле должно быть заполненным. Если не удалось узнать фамилию в разговоре, то проверьте подпись в письме (если есть переписка), фамилия может быть в адресе электронной почты. Если это генеральный директор или собственник, то через сервисы Сбис и другие сайты можно узнать его ФИО
+
+
+Имя
+С этим полем нет проблем, оно как правило всегда заполнено. Бывают риски когда в поле может быть указано имя Наташа и при звонке обратившись к клиенту “Наташа здравствуйте!” , можно услышать в ответ “Я вам не Наташа” и тогда снижается уровень доверия к звонящему. Поэтому следует имя зводить полное.
+
+
+Отчество
+Может быть пустым, но если общение с клиентом строится по форме Имя Отчество, то заполнить его нужно обязательно и это поле служит сигналом что если не знаком с контактом, то следует обращаться к клиенту по имени и отчеству.
+
+
+Должность
+Узнать и указать должность контакта обязательно.
+Это дает возможность:
+
+Понять уровень принятия решений
+Оценить доступ к бюджету
+Выстроить правильную стратегию коммуникаций
+Где брать:
+Спрашивать напрямую: “Подскажите, какая у вас роль в компании?”
+Смотреть в письма, визитки, сайт, информация о компании в открытых источниках
+Уточнять у секретаря/ассистента, других коллег
+После должности в скобках добавить Тип мышления это подсказывает в каком стиле нужно строить диалог с контактом.
+Как определить? По тому о чем больше говорит контакт и на чем заостряет свое внимание.
+1. (экономическое мышление) Покупает за деньги деньги. Такой тип мышления больше говорит о сроках окупаемости, Затратах на внедрении и обслуживание. Сравнивает экономический эффект разных предложений.
+2. (мыслит технически) Покупает за деньги технические характеристики. Интересуется мощностью двигателя, объемом бака загрузки, выпускаемой продукции в час. Сравнивает товары конкурентов по техническим параметрам.
+3. (мышление пользователя) Покупает за деньги удобство. Обсуждает удобство технических решений, рассуждает об оборудовании и услугах под призмой личного опыта в использовании. «Эта педаль очень удобно расположена, нога не затекает», «Кнопки понятны и мне легко догадаться за что они отвечают»
+
+Примеры заполнения:
+Директор (мышление техническое)
+Технолог (экономическое мышление)
+Закупщик (техническое мышление)
+Слесарь (пользовательское мышление)
+
+Портрет контакта
+Зафиксировать важные личные и деловые особенности контакта, чтобы иметь возможность подготовить стратегию общения перед началом диалога. Хорошая подготовка позволяет не наступить на больные темы и не потерять доверие, позволяет выбрать стиль общения заранее и не подстраиваться по ходу разговора.
+
+Примеры заполнения:
+✅ Хорошо:
+Религиозный, избегает тем про алкоголь. Считает сахар вредным.
+Не любит разговоры про удешевление сырья. Говорит: „Я делаю честный и натуральный продукт“. Открыт и готов отвечать на вопросы только если понимает почему их задают и что его ответы помогут лучше сработать и получить для него результат. Если не понимает зачем был задан вопрос, то может грубо ответить.
+❌ Плохо:
+Сложный клиент
+или
+Общительный добрый человек</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ia-item">
+            <button class="ia-trigger">
+              📈 Ведение сделки
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="placeholder">
+                  <div class="placeholder-icon">📝</div>
+                  <div class="placeholder-title">Материал в разработке</div>
+                  <div class="placeholder-sub">Материал будет добавлен позже</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+        <div class="doc-links">
+          <a class="doc-link" href="https://docs.google.com/document/d/1k5EWQe0nJJZP5pRdET0rd0BQRtRiuU2vofdFFbAiGkM/edit?usp=sharing" target="_blank" rel="noopener">
+            <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+            <span>Должностная инструкция РОПа<span class="doc-link-sub">Google Документы · открыть →</span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 Ключевой ассортимент -->
+    <div class="page" id="page-basic">
+      <div class="page-hero">
+        <h1 class="page-title">Ключевой ассортимент компании <span>и его УТП для потребителя</span></h1>
+      </div>
+      <div class="page-body">
+
+        <!-- Tabs -->
+        <div class="section-tabs">
+          <button class="section-tab active" data-tab="basic-articles">📄 Статьи</button>
+          <button class="section-tab" data-tab="basic-video">🎬 Видео</button>
+          <button class="section-tab" data-tab="basic-courses">🎓 Курсы</button>
+        </div>
+
+        <!-- Статьи -->
+        <div class="tab-panel active" id="basic-articles">
+          <div class="article-list">
+
+<div class="article-item">
+  <button class="article-trigger">
+    <span class="article-num">01</span>
+    <span class="article-trigger-main">
+      <span class="article-name">Глоссарий KADZAMA: путеводитель по миру производства шоколада от А до Я</span>
+      <span class="article-meta">
+        <span class="article-badge difficulty">Сложность 1/10</span>
+        <span class="article-badge">⏱ 5 минут</span>
+      </span>
+    </span>
+    <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+  </button>
+  <div class="article-body"><div class="article-body-inner">
+    <p class="article-summary">Это базовая статья-глоссарий, который простым языком объясняет основные термины из мира шоколада. В ней собраны ключевые понятия, с которыми сталкиваются при производстве — от какао-бобов до готовых изделий. Объясняется, что такое разные виды какао-продуктов (масло, тёртое, порошок), как делают шоколад (ферментация, обжарка, измельчение, конширование, темперирование), и почему важны такие вещи, как кристаллы какао-масла или правильная температура. Также описаны распространённые продукты и элементы рецептуры — например, белый шоколад, ганаш, сахар, лецитин. Отдельно упоминается оборудование (меланжеры, темперирующие машины, дробилки) и подход bean-to-bar, где производитель контролирует весь процесс. В целом это справочник, который помогает новичку разобраться в терминологии и лучше понимать, как устроено производство шоколада.</p>
+    <a class="article-read-link" href="https://kadzama.ru/journal/glossariy-kadzama-putevoditel-po-miru-proizvodstva-shokolada-ot-a-do-ya/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div></div>
+</div>
+
+<div class="article-item">
+  <button class="article-trigger">
+    <span class="article-num">02</span>
+    <span class="article-trigger-main">
+      <span class="article-name">Ядро шоколадного бизнеса: как зарабатывать на шоколаде по-настоящему</span>
+      <span class="article-meta">
+        <span class="article-badge difficulty">Сложность 5/10</span>
+        <span class="article-badge">⏱ 15 минут</span>
+      </span>
+    </span>
+    <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+  </button>
+  <div class="article-body"><div class="article-body-inner">
+    <p class="article-summary">Статья посвящена тому, как превратить производство шоколада из хобби в устойчивый и прибыльный бизнес, и показывает это на конкретных расчётах и примере контракта. В центре внимания — идея «ядра» производства, которое позволяет масштабироваться без резкого роста затрат и рисков. Вначале описывается типичная ситуация: небольшой производитель получает крупный заказ и сталкивается с необходимостью резко увеличить объёмы. На примере контракта на 4000 плиток в месяц показывается, что при использовании готового покупного шоколада большая часть выручки уходит на сырьё, а остальные расходы (аренда, персонал, упаковка) быстро съедают прибыль. Ключевое решение — переход на самостоятельное производство шоколада из какао-продуктов с помощью меланжера. Это позволяет существенно снизить себестоимость (примерно в 2–3 раза) при сохранении качества и получить контроль над рецептурой. Дополнительно меланжер расширяет ассортимент: на нём можно делать не только шоколад, но и пасты, начинки и другие продукты, открывая новые направления дохода. Вторая важная часть «ядра» — автоматическая темперирующая машина (АТМ), которая берёт на себя сложные технологические процессы: плавление, темперирование и дозировку. Это снижает зависимость от квалифицированного персонала, ускоряет производство и делает качество стабильным, минимизируя человеческий фактор. Финансовые расчёты демонстрируют, что при работе на готовом шоколаде и при собственном производстве итоговая прибыль в первый год сопоставима, но во втором случае после окупаемости оборудования прибыль резко возрастает, а бизнес становится более независимым и гибким.</p>
+    <a class="article-read-link" href="https://kadzama.ru/journal/yadro-shokoladnogo-biznesa-kak-zarabatyvat-na-shokolade-po-nastoyashchemu/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div></div>
+</div>
+
+<div class="article-item">
+  <button class="article-trigger">
+    <span class="article-num">03</span>
+    <span class="article-trigger-main">
+      <span class="article-name">Чек-лист по выбору большого меланжера для производства шоколада и ореховых паст</span>
+      <span class="article-meta">
+        <span class="article-badge difficulty">Сложность 6/10</span>
+        <span class="article-badge">⏱ 20 минут</span>
+      </span>
+    </span>
+    <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+  </button>
+  <div class="article-body"><div class="article-body-inner">
+    <p class="article-summary">Статья представляет собой практический чек-лист по выбору крупного меланжера для производства шоколада и ореховых паст, ориентированный на тех, кто выходит из «домашнего» формата и масштабирует производство. Подчеркивается, что все меланжеры выполняют одну и ту же базовую функцию — измельчение и конширование массы, поэтому ключевое различие между моделями заключается в конструктивных деталях, влияющих на качество продукта, удобство работы и надежность оборудования. Основное внимание уделяется рабочим элементам машины. Важнейшим критерием является качество камней: предпочтение отдается плотному граниту (или кварциту), который не крошится и служит дольше, а также типу и глубине проточки, от которых зависит эффективность помола. Разбирается конструкция узлов вращения — более безопасным и практичным решением считаются втулки вместо подшипников, поскольку они не требуют смазки и проще в обслуживании. Отдельно рассматривается прижимной механизм: простые пружинные системы предпочтительнее сложной и дорогой пневматики за счет надежности и ремонтопригодности. В финале материал сводится к ключевой идее: хороший меланжер — это не набор «наворотов», а продуманная, безопасная и легко обслуживаемая машина, которая стабильно работает в реальных условиях производства и не создает проблем в долгосрочной перспективе.</p>
+    <a class="article-read-link" href="https://kadzama.ru/journal/chek-list-po-vyboru-bolshogo-melanzhera-dlya-proizvodstva-shokolada-i-orekhovykh-past/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div></div>
+</div>
+
+<div class="article-item">
+  <button class="article-trigger">
+    <span class="article-num">04</span>
+    <span class="article-trigger-main">
+      <span class="article-name">Спиральная проточка камней меланжера. По-другому вы уже не захотите</span>
+      <span class="article-meta">
+        <span class="article-badge difficulty">Сложность 3/10</span>
+        <span class="article-badge">⏱ 5 минут</span>
+      </span>
+    </span>
+    <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+  </button>
+  <div class="article-body"><div class="article-body-inner">
+    <p class="article-summary">Статья посвящена сравнению двух типов проточки камней меланжера — традиционной кольцевой и спиральной — и объясняет, как эта небольшая деталь влияет на скорость и качество помола. Сначала описывается распространённая кольцевая проточка, при которой канавки расположены параллельно движению камней. Она считается стандартом, но имеет ограничение: зона эффективного перетирания остаётся практически неизменной, из-за чего масса обрабатывается неравномерно, а сложные ингредиенты (например, кокос) могут плохо измельчаться даже при длительной работе. В качестве альтернативы предлагается спиральная (диагональная) проточка, разработанная для увеличения эффективности процесса. Её ключевая особенность — создание направленного движения массы: канавки «затягивают» продукт под жернова и одновременно перераспределяют его по всей рабочей зоне. Это увеличивает площадь контакта и делает процесс помола более динамичным и равномерным. Для наглядности приводятся аналогии и результаты тестов: при одинаковых условиях меланжеры со спиральной проточкой дают более мелкий размер частиц и более гладкую текстуру продукта, причём разница может быть значительной — вплоть до двукратного уменьшения размера частиц.</p>
+    <a class="article-read-link" href="https://kadzama.ru/journal/spiralnaya-protochka-kamney-melanzhera-po-drugomu-vy-uzhe-ne-zakhotite/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div></div>
+</div>
+
+<div class="article-item">
+  <button class="article-trigger">
+    <span class="article-num">05</span>
+    <span class="article-trigger-main">
+      <span class="article-name">Чек-лист по выбору автоматической темперирующей машины для шоколада</span>
+      <span class="article-meta">
+        <span class="article-badge difficulty">Сложность 6/10</span>
+        <span class="article-badge">⏱ 20 минут</span>
+      </span>
+    </span>
+    <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+  </button>
+  <div class="article-body"><div class="article-body-inner">
+    <p class="article-summary">Статья представляет собой подробный чек-лист по выбору автоматической темперирующей машины (АТМ) и объясняет, на какие реальные, а не поверхностные характеристики стоит обращать внимание при покупке. Подчеркивается, что большинство машин в одном ценовом сегменте выполняют одинаковые базовые функции, поэтому выбор не должен строиться на внешнем виде или субъективных ощущениях, а на удобстве эксплуатации, надежности и обслуживании в долгосрочной перспективе. Материал последовательно разбирает как внешние, так и внутренние элементы машины. Среди ключевых аспектов — эргономика конструкции (плоские поверхности, удобный доступ к узлам), расположение и функциональность панели управления, качество и материал сливного носика, точность температурных датчиков и возможность подключения дополнительного оборудования. Отдельное внимание уделяется удобству работы: размер и функциональность вибростола, объем загрузочного бака, удобство педали подачи шоколада и мобильность за счет регулируемых колес. Значительная часть посвящена обслуживанию и надежности: насколько легко разобрать машину, получить доступ к внутренним компонентам, почистить или заменить детали. Рассматриваются особенности электронной платы (желательно простая и ремонтопригодная), наличие самодиагностики, безопасность и общая логика расположения внутренних узлов. В конце все сводится к практическому набору рекомендаций: выбирать машину с простой и продуманной конструкцией, удобным доступом к обслуживанию, надежными материалами и возможностью интеграции в производство. Общая мысль — хорошая АТМ определяется не внешним видом и не брендом, а тем, насколько она удобна, ремонтопригодна и стабильна в реальной работе.</p>
+    <a class="article-read-link" href="https://kadzama.ru/journal/chek-list-po-vyboru-avtomaticheskoy-temperiruyushchey-mashiny-dlya-shokolada/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div></div>
+</div>
+
+<div class="article-item">
+  <button class="article-trigger">
+    <span class="article-num">06</span>
+    <span class="article-trigger-main">
+      <span class="article-name">Выбираем темперирующую машину: автотемпер или ёмкость с колёсным миксером?</span>
+      <span class="article-meta">
+        <span class="article-badge difficulty">Сложность 5/10</span>
+        <span class="article-badge">⏱ 10 минут</span>
+      </span>
+    </span>
+    <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+  </button>
+  <div class="article-body"><div class="article-body-inner">
+    <p class="article-summary">Статья разбирает выбор между двумя типами оборудования для темперирования шоколада — автоматической темперирующей машиной (АТМ) и более простой емкостью с колесным миксером — и объясняет, в каких условиях оправдан каждый вариант. В центре внимания — не столько различие в результате (обе машины позволяют делать шоколадные изделия), сколько различие в процессе, уровне автоматизации и требованиях к пользователю. АТМ полностью автоматизирует темперирование: сама нагревает, охлаждает и формирует нужную кристаллическую структуру, обеспечивая стабильный результат за короткое время и практически без участия специалиста. Это снижает зависимость от квалифицированного персонала, ускоряет производство и позволяет легко масштабироваться, а также выстраивать полноценные автоматизированные линии с дополнительным оборудованием. Емкость с миксером, напротив, выполняет базовые функции — нагрев и перемешивание — и требует от пользователя знаний и навыков темперирования. При этом она значительно дешевле, проще в обслуживании, потребляет меньше энергии и более мобильна, что делает её удобным решением для небольших производств, старта или работы в «ремесленном» формате. В итоге выбор сводится к масштабу задач: автоматическая машина — для стабильного массового производства и минимизации ручного труда, емкость — для более гибкой, бюджетной и менее автоматизированной работы.</p>
+    <a class="article-read-link" href="https://kadzama.ru/journal/vybiraem-temperiruyushchuyu-mashinu-dlya-raboty-s-shokoladom-avtotemper-ili-emkost-s-kolesnym-mikser/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div></div>
+</div>
+
+<div class="article-item">
+  <button class="article-trigger">
+    <span class="article-num">07</span>
+    <span class="article-trigger-main">
+      <span class="article-name">Холодильные туннели для шоколада. Зачем они нужны и кому?</span>
+      <span class="article-meta">
+        <span class="article-badge difficulty">Сложность 7/10</span>
+        <span class="article-badge">⏱ 15 минут</span>
+      </span>
+    </span>
+    <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+  </button>
+  <div class="article-body"><div class="article-body-inner">
+    <p class="article-summary">Статья посвящена холодильным туннелям для шоколада и объясняет, что это за оборудование, как оно устроено и в каких случаях его использование оправдано. Основной акцент делается на том, что туннель — это не просто «альтернатива холодильнику», а инструмент для автоматизации и масштабирования производства. Сначала описывается конструкция: туннель представляет собой проточную охлаждающую камеру с движущейся лентой, по которой изделия проходят через несколько зон охлаждения. Ключевая идея материала — холодильный туннель нужен не столько для «лучшего охлаждения», сколько для повышения эффективности производства. Он позволяет отказаться от ручных операций, ускорить процесс, стандартизировать качество и работать с большими объемами без остановок. При этом подчеркивается, что туннель требует настройки и не избавляет от необходимости учитывать базовые параметры, такие как разница температур и точка росы. Кроме того, его покупка оправдана только при значительных объемах (примерно от сотен килограммов до тонн продукции в месяц), тогда как для небольшого производства достаточно обычного холодильника. В итоге туннель рассматривается как часть более широкой автоматизированной линии вместе с темперирующей машиной и глазировочным оборудованием, превращая производство в почти непрерывный процесс.</p>
+    <a class="article-read-link" href="https://kadzama.ru/journal/kholodilnye-tunneli-dlya-shokolada-zachem-oni-nuzhny-i-komu/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div></div>
+</div>
+
+<div class="article-item">
+  <button class="article-trigger">
+    <span class="article-num">08</span>
+    <span class="article-trigger-main">
+      <span class="article-name">Всё в шоколаде: большой гид по глазировке кондитерских изделий</span>
+      <span class="article-meta">
+        <span class="article-badge difficulty">Сложность 6/10</span>
+        <span class="article-badge">⏱ 15 минут</span>
+      </span>
+    </span>
+    <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+  </button>
+  <div class="article-body"><div class="article-body-inner">
+    <p class="article-summary">Статья представляет собой подробный практический гид по глазировке кондитерских изделий и показывает, что этот эффектный этап — не просто «покрыть шоколадом», а управляемый технологический процесс с множеством параметров. За внешней красотой скрывается точная настройка температуры шоколада, скорости линии, обдува и даже формы изделия. Основная идея — глазировать можно практически любой продукт, но результат всегда зависит от настроек. Толщина слоя регулируется температурой и условиями работы: можно получить как тонкое покрытие, так и плотную шоколадную оболочку. При этом важно учитывать нюансы — например, слишком холодный воздух может «схватывать» шоколад раньше времени и давать неровную поверхность. Большое внимание уделяется скорости и организации процесса. Изменяя скорость ленты и обдува, можно значительно повысить производительность без потери качества. Однако универсального алгоритма не существует: каждое изделие — от зефира до орехов или печенья — требует своей настройки, так как форма, текстура и влажность влияют на поведение шоколада. Отдельно разбираются практические моменты: как уменьшить излишки шоколада («юбку»), как подготовить продукты (например, просушить финики), какие формы легче глазируются и как влияет геометрия изделия на расход шоколада. Также рассматривается роль оборудования — от компактных глазировочных столов до полноценных линий с охлаждающим туннелем. В итоге материал подводит к мысли, что качественная глазировка — это результат точной настройки процесса под конкретный продукт: чем лучше вы понимаете физику и подбираете параметры, тем стабильнее, аккуратнее и экономичнее будет результат.</p>
+    <a class="article-read-link" href="https://kadzama.ru/journal/vsye-v-shokolade-bolshoy-gid-po-glazirovke-konditerskikh-izdeliy/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div></div>
+</div>
+
+<div class="article-item">
+  <button class="article-trigger">
+    <span class="article-num">09</span>
+    <span class="article-trigger-main">
+      <span class="article-name">Меланжер против шаровой мельницы</span>
+      <span class="article-meta">
+        <span class="article-badge difficulty">Статья в разработке</span>
+      </span>
+    </span>
+    <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+  </button>
+  <div class="article-body"><div class="article-body-inner">
+    <div class="placeholder">
+      <div class="placeholder-icon">📝</div>
+      <div class="placeholder-title">Статья в разработке</div>
+      <div class="placeholder-sub">Материал будет добавлен позже</div>
+    </div>
+  </div></div>
+</div>
+
+<div class="article-item">
+  <button class="article-trigger">
+    <span class="article-num">10</span>
+    <span class="article-trigger-main">
+      <span class="article-name">Выбор шаровой мельницы</span>
+      <span class="article-meta">
+        <span class="article-badge difficulty">Статья в разработке</span>
+      </span>
+    </span>
+    <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+  </button>
+  <div class="article-body"><div class="article-body-inner">
+    <div class="placeholder">
+      <div class="placeholder-icon">📝</div>
+      <div class="placeholder-title">Статья в разработке</div>
+      <div class="placeholder-sub">Материал будет добавлен позже</div>
+    </div>
+  </div></div>
+</div>
+          </div>
+        </div>
+
+        <!-- Видео -->
+        <div class="tab-panel" id="basic-video">
+          <div class="doc-links">
+            <a class="doc-link" href="https://drive.google.com/file/d/1BSVy5OfmbKogKZskHunhQvHXczKlLQsl/view?usp=sharing" target="_blank" rel="noopener">
+              <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polygon points="10,9 16,12 10,15 10,9"/></svg></span>
+              <span>Обзор плавильного танка<span class="doc-link-sub">Google Drive · открыть →</span></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Курсы -->
+        <div class="tab-panel" id="basic-courses">
+          <div class="placeholder">
+            <div class="placeholder-icon">🎓</div>
+            <div class="placeholder-title">Курсы в разработке</div>
+            <div class="placeholder-sub">Материалы будут добавлены позже</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 04 Средний -->
+    <div class="page" id="page-mid">
+      <div class="page-hero">
+        <h1 class="page-title">Психология <span>мышления клиентов</span></h1>
+      </div>
+      <div class="page-body">
+        <div class="ia-wrap">
+          <div class="ia-item">
+            <button class="ia-trigger">
+              🔷 «Айсберг» компании
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <p class="content-copy">Для того чтобы понять ДНК нашей компании, предлагаю вам представить айсберг, верхушка которого хорошо заметна и очевидна каждому. Это Функциональный уровень, который сообщает нам о том, какую материальную ценность мы создаём. Следующий — Эмоциональный уровень айсберга — находится под водой, и его не видно, но все о нём знают — это эмоциональные ощущение клиента, когда он взаимодействует с нами и с нашими продуктами. Эмоциональный уровень помогает клиенту понять «свой-чужой», «верю-не верю». Если клиент эмоционально чувствует себя хорошо и доверяет нам, то его кошелек открывается. Нет ни одной продажи, в которой клиент не испытал бы эмоцию прежде, чем решится на сделку. Философский уровень отвечает на вопрос «Кто мы такие, какие ценности для нас важны». Так мы понимаем, что в команду пришёл свой, и с ним мы сможем достигать нашу цель ещё быстрее, или чужой, который будет тянуть нас в бок — с такими людьми нужно расставаться. Так и клиент на философском уровне понимает, насколько это свои люди.</p>
+
+                <p class="content-copy">Познакомься с нашим айсбергом и интерпретируй его, обсуди свои мысли о прочитанном с коллегами и тебе станет ясно, туда ли ты попал или стоит идти дальше и искать своих в другом месте. Айсберг — это команда людей, которые делают продукт и услугу, с определённым отношением, философией и ценностями.</p>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">Функциональный уровень</strong></p>
+                <p class="content-copy">Мы предлагаем все необходимое для запуска и развития шоколадного бизнеса (от идеи до маржи).</p>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">Что мы делаем?</strong></p>
+                <ol class="content-olist">
+                  <li>Обучаем команды клиента по технологиям производства изделий из шоколада;</li>
+                  <li>Разрабатываем рецептуры для клиента;</li>
+                  <li>Комплектуем клиента оборудованием и оказываем сервис;</li>
+                  <li>Поставляем клиенту формы для отливки шоколада;</li>
+                  <li>Проводим консалтинг в бизнес-вопросах и эффективности;</li>
+                  <li>Продаём готовый бизнес «Шоколадная мануфактура Frais».</li>
+                </ol>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">Эмоциональный уровень</strong></p>
+                <p class="content-copy">Каждый клиент чувствует уверенность и безопасность, зная, что мы на стороне его успеха.</p>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">Как мы это делаем, чтобы клиент себя чувствовал уверенно и безопасно?</strong></p>
+                <ol class="content-olist">
+                  <li>Экспертно. Опираемся на собственные прикладные знания и опыт;</li>
+                  <li>Вовлеченно. Честно погружаемся в решение задач клиента;</li>
+                  <li>Комплексно. Используем комплексный подход для решения достижения истинных целей клиента.</li>
+                </ol>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">Философский уровень</strong></p>
+                <p class="content-copy">Наше слово — это наша репутация, и мы всегда держим данное слово.</p>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">Во что мы верим?</strong></p>
+                <p class="content-copy">Мы верим, что каждого клиента нужно сделать лояльным, чтобы он нас рекомендовал.</p>
+
+                <p class="content-copy"><strong style="color:var(--gray-800)">За что мы стоим?</strong></p>
+                <ol class="content-olist">
+                  <li>За открытость, доверие и честность (Я хочу тебя понять);</li>
+                  <li>За успех клиента в своей работе (SCRUM);</li>
+                  <li>За непрерывное совершенствование (KAIZEN);</li>
+                  <li>За удовольствие от работы (IKIGAI).</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div class="ia-item">
+            <button class="ia-trigger">
+              Анализ компании
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="placeholder">
+                  <div class="placeholder-icon">📝</div>
+                  <div class="placeholder-title">Материал в разработке</div>
+                  <div class="placeholder-sub">Материал будет добавлен позже</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ia-item">
+            <button class="ia-trigger">
+              Выявление ЛПР
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="placeholder">
+                  <div class="placeholder-icon">📝</div>
+                  <div class="placeholder-title">Материал в разработке</div>
+                  <div class="placeholder-sub">Материал будет добавлен позже</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ia-item">
+            <button class="ia-trigger">
+              Типы людей и как с ними общаться
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="placeholder">
+                  <div class="placeholder-icon">📝</div>
+                  <div class="placeholder-title">Материал в разработке</div>
+                  <div class="placeholder-sub">Материал будет добавлен позже</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ia-item">
+            <button class="ia-trigger">
+              Сценарий ведения переговоров и чек-листы
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="placeholder">
+                  <div class="placeholder-icon">📝</div>
+                  <div class="placeholder-title">Материал в разработке</div>
+                  <div class="placeholder-sub">Материал будет добавлен позже</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 Расширяем знания -->
+    <div class="page" id="page-advanced">
+      <div class="page-hero">
+        <h1 class="page-title">Расширяем знания <span>по ассортименту компании</span></h1>
+      </div>
+      <div class="page-body">
+        <div class="section-tabs">
+          <button class="section-tab active" data-tab="advanced-articles">📄 Статьи</button>
+          <button class="section-tab" data-tab="advanced-video">🎬 Видео</button>
+          <button class="section-tab" data-tab="advanced-courses">🎓 Курсы</button>
+        </div>
+
+        <div class="tab-panel active" id="advanced-articles">
+        <div class="article-list">
+          <div class="article-item">
+            <button class="article-trigger">
+              <span class="article-num">01</span>
+              <span class="article-trigger-main">
+                <span class="article-name">Одинарная и двойная гитары для нарезки начинки. Больше значит лучше?</span>
+                <span class="article-meta">
+                  <span class="article-badge difficulty">Сложность 4/10</span>
+                  <span class="article-badge">⏱ 5 минут</span>
+                </span>
+              </span>
+              <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="article-body"><div class="article-body-inner">
+              <p class="article-summary">Статья посвящена сравнению одинарной и двойной «гитары» — инструмента для нарезки кондитерских масс (ганаша, мармелада, бисквита и др.) — и отвечает на вопрос, действительно ли более сложная конструкция даёт ощутимые преимущества в работе. Оба варианта выполняют одну и ту же задачу, а ключевое отличие заключается в конструкции и способе нарезки. Двойная гитара позволяет быстрее разрезать пласт начинки за один цикл: сначала в одном направлении, затем сразу в другом, без необходимости перекладывать продукт. Однако это преимущество в скорости частично нивелируется в реальной работе. Двойная гитара более громоздкая, тяжелая и значительно сложнее в обслуживании: её неудобно мыть, особенно в небольших помещениях, а конструкция с перфорацией затрудняет очистку. В результате выбор зависит от условий производства. Двойная гитара оправдана на крупных производствах, где важна скорость, а обслуживанием оборудования занимаются отдельно. Одинарная гитара оказывается более практичной для небольших цехов и ремесленных производств: она компактнее, проще в уходе, дешевле и при этом полностью закрывает задачу нарезки. Общий вывод материала — «больше» не всегда означает «лучше»: эффективность инструмента определяется не только скоростью работы, но и удобством эксплуатации в конкретных условиях.</p>
+              <a class="article-read-link" href="https://kadzama.ru/journal/odinarnaya-i-dvoynaya-gitary-dlya-narezki-nachinki-bolshe-znachit-luchshe/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+            </div></div>
+          </div>
+          <div class="article-item">
+            <button class="article-trigger">
+              <span class="article-num">02</span>
+              <span class="article-trigger-main">
+                <span class="article-name">Как работает покрасочная камера — и почему это идеальный выбор для кондитеров</span>
+                <span class="article-meta">
+                  <span class="article-badge difficulty">Сложность 3/10</span>
+                  <span class="article-badge">⏱ 10 минут</span>
+                </span>
+              </span>
+              <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="article-body"><div class="article-body-inner">
+              <p class="article-summary">Статья объясняет, как работает покрасочная камера для кондитеров и почему она становится важным инструментом при работе с аэрографией и распылением какао-масла. Основная проблема, с которой сталкиваются кондитеры, — это неконтролируемый распыл: мелкие частицы оседают на поверхностях, загрязняют рабочее пространство и другие изделия. Покрасочная камера решает эту задачу за счёт замкнутого пространства и системы вентиляции. Во время работы мощный вентилятор втягивает воздух внутрь камеры, захватывая частицы распылённого какао-масла и направляя их в фильтрационную систему и вытяжку. Отдельное внимание уделяется конструкции: камера компактна, легко подключается, имеет удобную рабочую зону, освещение и элементы эргономики, которые упрощают повседневную работу. Использование нержавеющей стали облегчает очистку, а остатки какао-масла можно собирать и повторно использовать, что снижает потери сырья. В итоге материал показывает, что покрасочная камера — это не просто аксессуар, а инструмент, который делает процесс декорирования чище, стабильнее и экономичнее, особенно при регулярной работе и увеличении объёмов производства.</p>
+              <a class="article-read-link" href="https://kadzama.ru/journal/kak-rabotaet-pokrasochnaya-kamera-i-pochemu-eto-idealnyy-vybor-dlya-konditerov/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+            </div></div>
+          </div>
+          <div class="article-item">
+            <button class="article-trigger">
+              <span class="article-num">03</span>
+              <span class="article-trigger-main">
+                <span class="article-name">Настольное оборудование</span>
+                <span class="article-meta">
+                  <span class="article-badge difficulty">Статья в разработке</span>
+                </span>
+              </span>
+              <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="article-body"><div class="article-body-inner">
+              <div class="placeholder">
+                <div class="placeholder-icon">📝</div>
+                <div class="placeholder-title">Статья в разработке</div>
+                <div class="placeholder-sub">Материал будет добавлен позже</div>
+              </div>
+            </div></div>
+          </div>
+          <div class="article-item">
+            <button class="article-trigger">
+              <span class="article-num">04</span>
+              <span class="article-trigger-main">
+                <span class="article-name">Дражировочные барабаны</span>
+                <span class="article-meta">
+                  <span class="article-badge difficulty">Статья в разработке</span>
+                </span>
+              </span>
+              <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="article-body"><div class="article-body-inner">
+              <div class="placeholder">
+                <div class="placeholder-icon">📝</div>
+                <div class="placeholder-title">Статья в разработке</div>
+                <div class="placeholder-sub">Материал будет добавлен позже</div>
+              </div>
+            </div></div>
+          </div>
+          <div class="article-item">
+            <button class="article-trigger">
+              <span class="article-num">05</span>
+              <span class="article-trigger-main">
+                <span class="article-name">Печь для обжарки какао-бобов</span>
+                <span class="article-meta">
+                  <span class="article-badge difficulty">Статья в разработке</span>
+                </span>
+              </span>
+              <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="article-body"><div class="article-body-inner">
+              <div class="placeholder">
+                <div class="placeholder-icon">📝</div>
+                <div class="placeholder-title">Статья в разработке</div>
+                <div class="placeholder-sub">Материал будет добавлен позже</div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+
+        </div>
+
+        <div class="tab-panel" id="advanced-video">
+          <div class="doc-links">
+            <a class="doc-link" href="https://drive.google.com/file/d/1-u4whWBvQOn4-UZKTWGp0phQDQQGwI6p/view?usp=sharing" target="_blank" rel="noopener">
+              <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polygon points="10,9 16,12 10,15 10,9"/></svg></span>
+              <span>Обзор дробилки с сепаратором для какао-бобов<span class="doc-link-sub">Google Drive · открыть →</span></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="advanced-courses">
+          <div class="placeholder">
+            <div class="placeholder-icon">🎓</div>
+            <div class="placeholder-title">Курсы в разработке</div>
+            <div class="placeholder-sub">Материалы будут добавлены позже</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 Продаём бизнес-решения -->
+    <div class="page" id="page-links">
+      <div class="page-hero">
+        <h1 class="page-title">Продаём бизнес-решения, <span>а не оборудование</span></h1>
+      </div>
+      <div class="page-body">
+        <div class="doc-links">
+          <a class="doc-link" href="https://docs.google.com/document/d/17Ml0n6IBtD8etkY7fqboo5ps9aBw9vnoVk0MnIwYSbQ/edit?usp=sharing" target="_blank" rel="noopener">
+            <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+            <span>Генеральная стратегия группы компаний KADZAMA 2026<span class="doc-link-sub">Google Документы · открыть →</span></span>
+          </a>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="article-list">
+          <div class="article-item">
+            <button class="article-trigger">
+              <span class="article-num">01</span>
+              <span class="article-trigger-main">
+                <span class="article-name">Замороженная малина в шоколаде: новый рынок десертов с маржинальностью до 80%</span>
+                <span class="article-meta">
+                  <span class="article-badge difficulty">Сложность 7/10</span>
+                  <span class="article-badge">⏱ 25 минут</span>
+                </span>
+              </span>
+              <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="article-body"><div class="article-body-inner">
+              <p class="article-summary">Статья рассматривает замороженную малину в шоколаде как новый быстрорастущий сегмент десертов и объясняет, почему этот продукт привлекает внимание предпринимателей. В центре материала — сочетание тренда, простой технологии и высокой маржинальности, которое превращает отдельный продукт в формирующийся рынок. Сначала описывается сам десерт: цельные ягоды малины, покрытые слоем шоколада и замороженные, создают контраст текстур и вкусов — холодной кислинки и хрустящей сладкой оболочки. Продукт получил глобальное распространение благодаря бренду Franui, который вырос из локального эксперимента в Аргентине в международный бизнес с миллионами продаж. Особое внимание уделяется экономике: при относительно невысокой себестоимости сырья продукт продаётся по высокой розничной цене, что обеспечивает значительную маржинальность и делает категорию привлекательной для запуска производства. Также подчёркивается универсальность оборудования: линия, используемая для малины в шоколаде, подходит и для других продуктов — от орехов и сухофруктов до конфет и глазированных изделий. Это снижает риски и даёт возможность расширять ассортимент без дополнительных инвестиций.</p>
+              <a class="article-read-link" href="https://kadzama.ru/journal/malina-v-shokolade-kogda-tsifry-govoryat-sami-za-sebya/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+            </div></div>
+          </div>
+
+          <div class="article-item">
+            <button class="article-trigger">
+              <span class="article-num">02</span>
+              <span class="article-trigger-main">
+                <span class="article-name">3 модели шоколадного музея: как заработать не только на продукте, но и на эмоциях</span>
+                <span class="article-meta">
+                  <span class="article-badge difficulty">Сложность 9/10</span>
+                  <span class="article-badge">⏱ 20 минут</span>
+                </span>
+              </span>
+              <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="article-body"><div class="article-body-inner">
+              <p class="article-summary">Статья рассматривает шоколадный музей как бизнес-модель, в которой основная прибыль формируется не столько от продажи шоколада, сколько от впечатлений — экскурсий, мастер-классов и вовлечения посетителей. Ключевая идея — «продавать опыт», а не только продукт, что даёт более быстрый денежный оборот и высокую маржинальность. Материал разбирает три формата. Первый — компактный «магазин с музеем», где основой служит розница и мастер-классы: минимальные вложения, быстрый запуск и возможность тестировать спрос, при этом основная ценность — поток посетителей, привлечённых форматом «музея». Второй — полноценный музей с демонстрационным производством: здесь акцент смещается на экскурсии, которые становятся главным источником дохода, а сам шоколад играет вспомогательную роль. Такой формат требует больше площади и трафика, но даёт значительно больший оборот за счёт билетов. Третий — фабрика с музеем, где объединяются реальное производство и экскурсионная зона: посетители наблюдают процесс, а бизнес зарабатывает сразу на двух направлениях — продаже продукции и билетах. Отдельно подчёркивается экономика: в отличие от классического производства, где деньги «замораживаются» в сырье, производстве и отсрочках платежей, экскурсионная модель приносит выручку сразу и с более высокой маржой. В итоге статья показывает, что шоколадный музей — это не просто формат «для привлечения внимания», а самостоятельная и эффективная бизнес-модель, где эмоциональный опыт становится главным продуктом, а производство — либо дополнением, либо частью шоу.</p>
+              <a class="article-read-link" href="https://kadzama.ru/journal/3-modeli-shokoladnogo-muzeya/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 Мышление технолога -->
+    <div class="page" id="page-technologist">
+      <div class="page-hero">
+        <h1 class="page-title">Мышление <span>технолога</span></h1>
+      </div>
+      <div class="page-body">
+        <div class="section-tabs">
+          <button class="section-tab active" data-tab="technologist-articles">📄 Статьи</button>
+          <button class="section-tab" data-tab="technologist-video">🎬 Видео</button>
+          <button class="section-tab" data-tab="technologist-courses">🎓 Курсы</button>
+        </div>
+
+        <div class="tab-panel active" id="technologist-articles">
+          <div class="article-list">
+            <div class="article-item">
+              <button class="article-trigger">
+                <span class="article-num">01</span>
+                <span class="article-trigger-main">
+                  <span class="article-name">Призрак жирового поседения: почему белеет шоколад?</span>
+                  <span class="article-meta">
+                    <span class="article-badge difficulty">Сложность 7/10</span>
+                    <span class="article-badge">⏱ 15 минут</span>
+                  </span>
+                </span>
+                <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="article-body"><div class="article-body-inner">
+                <p class="article-summary">Статья разбирает явление жирового поседения шоколада — серо-белого налёта, который портит внешний вид изделия, хотя сам продукт остаётся безопасным и съедобным. Основная задача материала — объяснить, почему это происходит, как отличить его от сахарного поседения и какие технологические ошибки к этому приводят. Сначала даётся простое различие: жировое поседение — это расплавившийся и заново закристаллизовавшийся жир (он тает от прикосновения), тогда как сахарное связано с влагой и ощущается как шероховатые кристаллы. Далее раскрывается суть проблемы — нестабильное поведение жиров, в первую очередь какао-масла, которое может менять кристаллическую структуру под влиянием температуры, времени и состава изделия. Выделяются основные причины: неправильное темперирование (нестабильные кристаллы со временем перестраиваются), температурные перепады при хранении (жир частично плавится и выходит на поверхность), миграция жиров из начинок (особенно ореховых) и несовместимость разных типов жиров в рецептуре. Практическая часть посвящена предотвращению проблемы: правильное темперирование, контроль температуры и влажности при хранении, работа с рецептурой начинок (стабилизация жиров, уменьшение «свободного» масла, тонкий помол), использование барьерных слоёв и подбор совместимых жиров. В итоге материал подводит к тому, что жировое поседение — это не случайность, а закономерный результат нарушений в технологии или хранении. Чем лучше контролируются процессы кристаллизации и взаимодействия жиров, тем стабильнее и эстетичнее остаётся шоколад даже при длительном хранении.</p>
+                <a class="article-read-link" href="https://kadzama.ru/journal/prizrak-zhirovogo-posedeniya-pochemu-beleet-shokolad/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </div></div>
+            </div>
+
+            <div class="article-item">
+              <button class="article-trigger">
+                <span class="article-num">02</span>
+                <span class="article-trigger-main">
+                  <span class="article-name">Три подхода к производству ремесленного шоколада</span>
+                  <span class="article-meta">
+                    <span class="article-badge difficulty">Сложность 3/10</span>
+                    <span class="article-badge">⏱ 10 минут</span>
+                  </span>
+                </span>
+                <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="article-body"><div class="article-body-inner">
+                <p class="article-summary">Статья рассматривает три основных подхода к производству ремесленного шоколада и помогает понять, какой из них выбрать в зависимости от целей, ресурсов и уровня подготовки. В начале кратко объясняется происхождение шоколада: от какао-бобов, проходящих ферментацию, сушку, обжарку и помол до какао-тёртого — базового ингредиента, из которого уже формируется шоколад при добавлении сахара и других компонентов. Первый подход — использование готового покупного шоколада. Это самый простой и быстрый способ начать: продукт уже сбалансирован по вкусу и качеству, остаётся только правильно его растопить и темперировать. Такой вариант требует минимальных вложений и подходит для небольших объёмов или старта, но связан с высокой себестоимостью и отсутствием контроля над рецептурой. Второй подход — производство шоколада из какао-тёртого. Здесь производитель самостоятельно формирует рецепт, регулируя состав и вкус. Используется специальное оборудование (меланжер), а процесс занимает больше времени, но позволяет снизить себестоимость и создавать уникальный продукт. Этот вариант считается более гибким и выгодным при увеличении объёмов. Третий подход — bean-to-bar, то есть полный цикл от какао-бобов до готовой плитки. Он предполагает контроль всех этапов производства, включая закупку, сортировку, обжарку и переработку сырья. Такой способ даёт максимальную свободу и ценность продукта, но требует значительных инвестиций, оборудования и команды, а также приводит к более высокой цене конечного шоколада. В итоге подчёркивается, что ни один из подходов не является универсально лучшим: каждый решает разные задачи, и на практике их можно сочетать, выбирая оптимальную модель под конкретный бизнес.</p>
+                <a class="article-read-link" href="https://kadzama.ru/journal/tri-podkhoda-k-proizvodstvu-remeslennogo-shokolada/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </div></div>
+            </div>
+
+            <div class="article-item">
+              <button class="article-trigger">
+                <span class="article-num">03</span>
+                <span class="article-trigger-main">
+                  <span class="article-name">Что такое прекристаллизация</span>
+                  <span class="article-meta">
+                    <span class="article-badge difficulty">Сложность 4/10</span>
+                    <span class="article-badge">⏱ 5 минут</span>
+                  </span>
+                </span>
+                <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="article-body"><div class="article-body-inner">
+                <p class="article-summary">Статья объясняет, что такое прекристаллизация шоколада и почему без неё невозможно получить качественный продукт с привычными свойствами — блеском, гладкой текстурой, хрустом и устойчивостью к таянию. В основе процесса лежит поведение какао-масла, которое при охлаждении образует кристаллы. Проблема в том, что у какао-масла существует несколько типов кристаллов (их шесть), и они отличаются прочностью и стабильностью. При обычном застывании без контроля формируется хаотичная смесь всех типов, из-за чего шоколад получается мягким, матовым, быстро тает, может покрываться белым налётом и иметь неприятную текстуру. Прекристаллизация — это способ управлять этим процессом: сначала шоколад полностью расплавляют, разрушая все кристаллы, а затем создают условия, при которых формируются только стабильные β-кристаллы. Их нужно совсем немного, но именно они задают правильную кристаллическую структуру всей массе. В результате шоколад приобретает нужные свойства и ведёт себя предсказуемо. Отдельно упоминается, что со временем в уже готовом шоколаде могут образовываться ещё более стабильные кристаллы (super-β), из-за которых он тает медленнее, но на этапе производства их специально не создают. В конце перечисляются основные методы прекристаллизации (темперирование, «посев», температурные скачки, добавление готовых кристаллов и др.), подчёркивая, что все они направлены на одну цель — сформировать правильную структуру какао-масла и обеспечить стабильное качество шоколада.</p>
+                <a class="article-read-link" href="https://kadzama.ru/journal/chto-takoe-prekristallizatsiya/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </div></div>
+            </div>
+
+            <div class="article-item">
+              <button class="article-trigger">
+                <span class="article-num">04</span>
+                <span class="article-trigger-main">
+                  <span class="article-name">Почему важно правильно охлаждать шоколад?</span>
+                  <span class="article-meta">
+                    <span class="article-badge difficulty">Сложность 7/10</span>
+                    <span class="article-badge">⏱ 10 минут</span>
+                  </span>
+                </span>
+                <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="article-body"><div class="article-body-inner">
+                <p class="article-summary">Статья объясняет, почему этап охлаждения шоколада так же важен, как и темперирование, и как именно он влияет на внешний вид и качество готового изделия. Подчеркивается, что даже идеально подготовленный шоколад можно «испортить» на финальной стадии, если кристаллизация пройдет неправильно. Подробно разбирается механизм появления конденсата: при резком перепаде температур на поверхности образуется влага, которая растворяет сахар, а после испарения оставляет белый налет. Это связывается с понятием точки росы, которую важно учитывать, контролируя температуру и влажность в помещении. Также рассматриваются последствия слишком быстрого или слишком медленного охлаждения: в первом случае возможна деформация изделия, во втором — неравномерный рисунок кристаллов на поверхности. Отдельно сравниваются способы охлаждения: бытовые холодильники, профессиональные холодильники и охлаждающие туннели. В итоге материал сводится к простой, но критичной мысли: правильное охлаждение — это управляемый процесс с контролем температуры, влажности и времени, от которого напрямую зависит внешний вид, текстура и стабильность шоколада.</p>
+                <a class="article-read-link" href="https://kadzama.ru/journal/pochemu-vazhno-pravilno-okhlazhdat-shokolad/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </div></div>
+            </div>
+
+            <div class="article-item">
+              <button class="article-trigger">
+                <span class="article-num">05</span>
+                <span class="article-trigger-main">
+                  <span class="article-name">НЕшоколад: где кончается ремесло и начинается альтернатива</span>
+                  <span class="article-meta">
+                    <span class="article-badge difficulty">Сложность 7/10</span>
+                    <span class="article-badge">⏱ 15 минут</span>
+                  </span>
+                </span>
+                <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="article-body"><div class="article-body-inner">
+                <p class="article-summary">Статья рассматривает границу между классическим ремесленным шоколадом и его альтернативами — так называемым «НЕшоколадом», объясняя, какие продукты стоят за этим понятием и зачем они появляются на рынке. В центре внимания — противоречие между философией крафта, где важны чистый состав и ручная работа, и прагматикой бизнеса, стремящегося снизить себестоимость и расширить ассортимент. В качестве отправной точки берётся классический шоколад — продукт из какао-бобов, какао-масла и сахара, создаваемый через длительный помол в меланжере. Он выступает эталоном по вкусу, текстуре и репутации, но остаётся дорогим из-за стоимости сырья и трудоёмкости производства. Далее разбираются альтернативы. Первая — шоколад на эквивалентах какао-масла: технологичный и более дешёвый вариант, практически неотличимый по вкусу, но с жёсткими юридическими ограничениями и сильным репутационным барьером, особенно в крафтовом сегменте. Вторая — кэроб, который формирует отдельную нишу: продукт с иным вкусом, естественной сладостью и ориентацией на ЗОЖ-аудиторию, не столько заменяющий шоколад, сколько предлагающий альтернативный опыт. Третья — экспериментальный веллалад, создаваемый из отходов какао-производства, который демонстрирует экстремально низкую себестоимость, но остаётся скорее лабораторной разработкой, чем полноценным рыночным продуктом. В итоге материал подводит к идее, что современный рынок шоколада стал многослойным: помимо классики существует целая экосистема альтернатив, каждая из которых решает свои задачи — от удешевления производства до выхода в новые потребительские сегменты.</p>
+                <a class="article-read-link" href="https://kadzama.ru/journal/neshokolad-gde-konchaetsya-remeslo-i-nachinaetsya-alternativa/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </div></div>
+            </div>
+
+            <div class="article-item">
+              <button class="article-trigger">
+                <span class="article-num">06</span>
+                <span class="article-trigger-main">
+                  <span class="article-name">Темперирование ореховых паст: почему вам это нужно?</span>
+                  <span class="article-meta">
+                    <span class="article-badge difficulty">Сложность 6/10</span>
+                    <span class="article-badge">⏱ 20 минут</span>
+                  </span>
+                </span>
+                <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="article-body"><div class="article-body-inner">
+                <p class="article-summary">Статья объясняет, зачем темперировать шоколадно-ореховые пасты и как это влияет на их внешний вид, текстуру и срок хранения. Отталкиваясь от привычного темперирования шоколада, автор показывает, что та же логика работает и в продуктах с какао-маслом, включая пасты. Главная проблема, которую решает темперирование, — расслоение. В пастах более тяжёлые частицы (орехи, сахар, какао) со временем оседают, а жиры поднимаются наверх, из-за чего продукт теряет однородность и товарный вид. В отличие от шоколада, где достаточно какао-масла для «связывания» структуры, в пастах его меньше, и оно смешано с жидкими ореховыми жирами, поэтому без контроля кристаллизации структура быстро разрушается. Темперирование позволяет сформировать стабильные кристаллы какао-масла, которые создают внутри пасты своего рода «сетку», удерживающую ингредиенты на месте. В результате паста дольше остаётся однородной, не расслаивается, выглядит аккуратно и имеет более гладкую, шелковистую текстуру без жировых комков. При этом вкус не меняется, но восприятие продукта становится заметно лучше. Отдельно подчеркивается, что темперирование имеет смысл только для паст с какао-маслом: если его нет (например, в урбече), никакого эффекта не будет. В завершение акцент делается на важности правильного охлаждения после розлива: слишком резкие перепады температур могут вызвать конденсат и сахарное поседение, что ухудшает внешний вид даже правильно темперированной пасты. Общая идея — темперирование превращает пасту из нестабильного продукта в предсказуемый, эстетичный и более долговечный.</p>
+                <a class="article-read-link" href="https://kadzama.ru/journal/temperirovanie-orekhovykh-past-pochemu-vam-eto-nuzhno/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </div></div>
+            </div>
+
+            <div class="article-item">
+              <button class="article-trigger">
+                <span class="article-num">07</span>
+                <span class="article-trigger-main">
+                  <span class="article-name">Как правильно растопить шоколад: метод, температура и оборудование</span>
+                  <span class="article-meta">
+                    <span class="article-badge difficulty">Сложность 5/10</span>
+                    <span class="article-badge">⏱ 10 минут</span>
+                  </span>
+                </span>
+                <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="article-body"><div class="article-body-inner">
+                <p class="article-summary">Статья объясняет, что плавление шоколада — это не просто подготовительный шаг, а важный этап, от которого зависит вся дальнейшая работа: темперирование, формование и стабильность готового продукта. Несмотря на кажущуюся простоту, именно ошибки при нагреве (в первую очередь перегрев) часто приводят к проблемам, особенно при работе с молочным и белым шоколадом, чувствительным к температуре. Главный принцип — бережный и контролируемый нагрев без высоких температур. Выбор метода напрямую влияет на удобство процесса, загрузку команды и предсказуемость результата, поэтому его стоит подбирать под объёмы и формат работы. Далее рассматриваются основные способы плавления. Для небольших объёмов подходят базовые методы — водяная баня и микроволновка, но они требуют постоянного контроля и несут риски перегрева или попадания влаги. Духовка или пароконвектомат позволяют работать с большими объёмами, но занимают оборудование и требуют настройки. Более профессиональный уровень — это специальные ёмкости для темперирования, которые плавно нагревают шоколад и поддерживают его в рабочем состоянии без постоянного вмешательства. Для крупных производств используются плавильные танки, обеспечивающие стабильный нагрев и удобную интеграцию в линию. Темперирующие машины тоже могут использоваться для плавления, но это не их основная задача. В итоге подчёркивается, что универсального метода нет: на старте можно обойтись простыми решениями, но с ростом объёмов важнее становятся специализированные инструменты, которые снижают риски, экономят время и делают процесс более стабильным и управляемым.</p>
+                <a class="article-read-link" href="https://kadzama.ru/journal/kak-pravilno-rastopit-shokolad-metod-temperatura-i-oborudovanie/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </div></div>
+            </div>
+
+            <div class="article-item">
+              <button class="article-trigger">
+                <span class="article-num">08</span>
+                <span class="article-trigger-main">
+                  <span class="article-name">От чего клинит камни меланжера и как с этим бороться?</span>
+                  <span class="article-meta">
+                    <span class="article-badge difficulty">Сложность 7/10</span>
+                    <span class="article-badge">⏱ 10 минут</span>
+                  </span>
+                </span>
+                <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="article-body"><div class="article-body-inner">
+                <p class="article-summary">Статья разбирает одну из частых проблем при работе с меланжером — заклинивание камней — и объясняет, почему это происходит, как с этим справляться и как предотвратить в будущем. При этом подчеркивается, что сама по себе ситуация не критична и не ведёт к поломке оборудования, но влияет на эффективность и может замедлять процесс. Основные причины связаны с неправильной загрузкой и составом массы. Чаще всего камни клинит из-за крупных частиц (какао-крупки, орехов), которые попадают под жернова и мешают вращению, либо из-за нерастопленного какао-тёртого, которое застревает кусками. Вторая группа причин — накопление и затвердевание ингредиентов во втулках: сахар и молоко могут карамелизоваться, уменьшать зазор и блокировать движение. Практическая часть описывает способы решения: в простых случаях достаточно вручную «раскачать» камни, включая и выключая машину, в более сложных — разобрать и очистить втулки. Отдельно выделяется функция реверса, которая позволяет расклинить камни без разборки, меняя направление вращения. В итоге материал сводится к простой идее: заклинивание — это не поломка, а следствие ошибок в работе с сырьём и загрузкой.</p>
+                <a class="article-read-link" href="https://kadzama.ru/journal/ot-chego-klinit-kamni-melanzhera-i-kak-s-etim-borotsya/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </div></div>
+            </div>
+
+            <div class="article-item">
+              <button class="article-trigger">
+                <span class="article-num">09</span>
+                <span class="article-trigger-main">
+                  <span class="article-name">Шоколадный велюр: изящное решение для красивого эффекта, но грязного процесса</span>
+                  <span class="article-meta">
+                    <span class="article-badge difficulty">Сложность 7/10</span>
+                    <span class="article-badge">⏱ 15 минут</span>
+                  </span>
+                </span>
+                <span class="article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="article-body"><div class="article-body-inner">
+                <p class="article-summary">Статья посвящена технике шоколадного велюра — декоративного напыления, которое придаёт изделиям матовую, бархатистую текстуру и визуально переводит их в категорию «премиум». Объясняется, что эффект достигается за счёт распыления смеси какао-масла и шоколада на холодную поверхность: микрокапли мгновенно застывают, формируя характерную «замшевую» фактуру. Однако основной акцент делается на обратной стороне процесса. Несмотря на эффектный результат, напыление сопровождается большим количеством распыла: мелкие частицы какао-масла оседают не только на изделии, но и на всём вокруг — оборудовании, поверхностях и в воздухе. Отдельно подчёркивается, что в промышленных условиях эти проблемы решаются за счёт специальных камер и вытяжек, тогда как в небольших мастерских часто приходится импровизировать. В ответ на это предлагается решение — использование покрасочной камеры, которая локализует распыл, фильтрует воздух и позволяет контролировать процесс. В завершение приводятся практические рекомендации по работе с велюром: контроль температуры смеси и изделия, правильная дистанция распыления, техника нанесения, вентиляция и условия окружающей среды. Итоговая мысль — велюр остаётся мощным инструментом визуального оформления, но требует грамотной организации процесса.</p>
+                <a class="article-read-link" href="https://kadzama.ru/journal/shokoladnyy-velyur-izyashchnoe-reshenie-dlya-krasivogo-effekta-no-gryaznogo-protsessa/" target="_blank" rel="noopener">Читать полную версию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+              </div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="technologist-video">
+          <div class="placeholder">
+            <div class="placeholder-icon">🎬</div>
+            <div class="placeholder-title">Видео в разработке</div>
+            <div class="placeholder-sub">Материалы будут добавлены позже</div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="technologist-courses">
+          <div class="ia-wrap">
+            <div class="ia-item">
+              <button class="ia-trigger">
+                Прекристаллизация: введение
+                <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="ia-body">
+                <div class="ia-body-inner">
+                  <div class="video-wrap">
+                    <video controls preload="metadata" playsinline src="https://fs.getcourse.ru/fileservice/file/download/a/126448/sc/92/h/5da1288b343a9723a008129c09d86eda.mp4"></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ia-item">
+              <button class="ia-trigger">
+                Оборудование для темперирования
+                <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="ia-body">
+                <div class="ia-body-inner">
+                  <div class="video-wrap">
+                    <video controls preload="metadata" playsinline src="https://fs.getcourse.ru/fileservice/file/download/a/126448/sc/4/h/2e00fe8120097f39332c44fd0569e681.mp4"></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ia-item">
+              <button class="ia-trigger">
+                Загрузка ингредиентов в меланжер
+                <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="ia-body">
+                <div class="ia-body-inner">
+                  <div class="video-wrap">
+                    <video controls preload="metadata" playsinline src="https://fs.getcourse.ru/fileservice/file/download/a/126448/sc/6/h/58c1c3f68639731c261098a3dcf50335.mp4"></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ia-item">
+              <button class="ia-trigger">
+                Меланжерный шоколад из какао тёртого
+                <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="ia-body">
+                <div class="ia-body-inner">
+                  <div class="video-wrap">
+                    <video controls preload="metadata" playsinline src="https://fs.getcourse.ru/fileservice/file/download/a/126448/sc/189/h/ad3e3785605a80ea1036859ddceb28a2.mp4"></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ia-item">
+              <button class="ia-trigger">
+                Оборудование для производства драже
+                <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="ia-body">
+                <div class="ia-body-inner">
+                  <div class="video-wrap">
+                    <video controls preload="metadata" playsinline src="https://fs.getcourse.ru/fileservice/file/download/a/126448/sc/349/h/dff944c25ce59b70f116f5fc6dc4d8a3.mp4"></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ia-item">
+              <button class="ia-trigger">
+                Прекристаллизация: виды кристаллов
+                <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="ia-body">
+                <div class="ia-body-inner">
+                  <div class="video-wrap">
+                    <video controls preload="metadata" playsinline src="https://fs.getcourse.ru/fileservice/file/download/a/126448/sc/113/h/2694988c175c940f42dfdc20d74d2f63.mp4"></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ia-item">
+              <button class="ia-trigger">
+                Перекристаллизация
+                <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="ia-body">
+                <div class="ia-body-inner">
+                  <div class="video-wrap">
+                    <video controls preload="metadata" playsinline src="https://fs.getcourse.ru/fileservice/file/download/a/126448/sc/35/h/95291d74ff70882e883ff462d927270f.mp4"></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ia-item">
+              <button class="ia-trigger">
+                Прекристаллизация пасты. Зачем и как это делать.
+                <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="ia-body">
+                <div class="ia-body-inner">
+                  <div class="video-wrap">
+                    <video controls preload="metadata" playsinline src="https://fs.getcourse.ru/fileservice/file/download/a/126448/sc/325/h/2be9102e3bb05cfe822965dcd4ddf2b0.mp4"></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ia-item">
+              <button class="ia-trigger">
+                Процесс дражирования
+                <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="ia-body">
+                <div class="ia-body-inner">
+                  <div class="video-wrap">
+                    <video controls preload="metadata" playsinline src="https://fs.getcourse.ru/fileservice/file/download/a/126448/sc/79/h/50d0d375cc558ab1bdc03474148a6620.mp4"></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ia-item">
+              <button class="ia-trigger">
+                Виды паст
+                <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="ia-body">
+                <div class="ia-body-inner">
+                  <div class="video-wrap">
+                    <video controls preload="metadata" playsinline src="https://fs.getcourse.ru/fileservice/file/download/a/126448/sc/296/h/cadc4ad9288e78c6b1e3bba6a6478039.mp4"></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ia-item">
+              <button class="ia-trigger">
+                Роль ингредиентов в составе пасты
+                <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="ia-body">
+                <div class="ia-body-inner">
+                  <div class="video-wrap">
+                    <video controls preload="metadata" playsinline src="https://fs.getcourse.ru/fileservice/file/download/a/126448/sc/35/h/ac43115b77765ff418c4579849fd9837.mp4"></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 Полезные материалы -->
+    <div class="page" id="page-materials">
+      <div class="page-hero">
+        <h1 class="page-title">Полезные материалы <span>для специалиста ОП</span></h1>
+      </div>
+      <div class="page-body">
+        <div class="doc-links">
+          <a class="doc-link" href="https://chocolatier.bitrix24.ru/knowledge/commercial_service/" target="_blank" rel="noopener">
+            <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+            <span>База знаний ОП в Битрикс24<span class="doc-link-sub">Bitrix24 · открыть →</span></span>
+          </a>
+          <a class="doc-link" href="https://docs.google.com/spreadsheets/d/16HNTeej9eXKDCdsrtbd1m8tIb5ev1uHS7eOEysEsNeU/edit?gid=4617287#gid=4617287" target="_blank" rel="noopener">
+            <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+            <span>Полный прайс-лист 2026<span class="doc-link-sub">Google Таблицы · открыть →</span></span>
+          </a>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="ia-wrap">
+          <div class="ia-item">
+            <button class="ia-trigger">
+              📁 Коммерческие предложения (КП)
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="doc-links">
+                  <a class="doc-link" href="https://drive.google.com/drive/folders/1Sfp9SCPCsWmzGSuNbfcfKGbRWWebzr4V" target="_blank" rel="noopener">
+                    <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>
+                    <span>Ягода в шоколаде<span class="doc-link-sub">Google Drive · открыть →</span></span>
+                  </a>
+                  <a class="doc-link" href="https://drive.google.com/drive/folders/19YsZp_U6zZH8ysLdGExitKsg1AnAnSsX" target="_blank" rel="noopener">
+                    <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>
+                    <span>Шаровые мельницы<span class="doc-link-sub">Google Drive · открыть →</span></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="doc-links">
+          <a class="doc-link" href="https://docs.google.com/spreadsheets/d/1oXlBSjWSbkMo2FC5f4w4ae6p6mmbF3h_O4Os3vaPuFQ/edit?gid=0#gid=0" target="_blank" rel="noopener">
+            <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+            <span>Видео с оборудованием<span class="doc-link-sub">Google Таблицы · открыть →</span></span>
+          </a>
+          <a class="doc-link" href="https://docs.google.com/spreadsheets/d/1Qc2hSrEtZGCeNlTOd3jmZFCLrYZ48XbEJxsRH8huX84/edit?usp=sharing" target="_blank" rel="noopener">
+            <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+            <span>Поставщики ингредиентов<span class="doc-link-sub">Google Таблицы · открыть →</span></span>
+          </a>
+          <a class="doc-link" href="https://docs.google.com/spreadsheets/d/1tVfCIwSxB8NakyOgThrhgvTfCJEaophFgVuHgioqeBo/edit?gid=0#gid=0" target="_blank" rel="noopener">
+            <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+            <span>Сырьевая себестоимость шоколада и паст<span class="doc-link-sub">Google Таблицы · открыть →</span></span>
+          </a>
+          <a class="doc-link" href="https://docs.google.com/spreadsheets/d/1oj66pZ_a2djSgspawrcxwRoIvoYdBG8wKL5BYK0Tm6Y/edit?usp=sharing" target="_blank" rel="noopener">
+            <span class="doc-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+            <span>Список рецептур<span class="doc-link-sub">Google Таблицы · открыть →</span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 Полезные материалы для РОПа -->
+    <div class="page" id="page-rop-materials">
+      <div class="page-hero">
+        <h1 class="page-title">Полезные материалы <span>для РОПа</span></h1>
+      </div>
+      <div class="page-body">
+        <div class="ia-wrap">
+          <div class="ia-item">
+            <button class="ia-trigger">
+              Заполнение платёжного календаря
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="placeholder">
+                  <div class="placeholder-icon">📝</div>
+                  <div class="placeholder-title">Материал в разработке</div>
+                  <div class="placeholder-sub">Материал будет добавлен позже</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ia-item">
+            <button class="ia-trigger">
+              ОКК
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="placeholder">
+                  <div class="placeholder-icon">📝</div>
+                  <div class="placeholder-title">Материал в разработке</div>
+                  <div class="placeholder-sub">Материал будет добавлен позже</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ia-item">
+            <button class="ia-trigger">
+              Расчёт заработной платы специалистов ОП
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="placeholder">
+                  <div class="placeholder-icon">📝</div>
+                  <div class="placeholder-title">Материал в разработке</div>
+                  <div class="placeholder-sub">Материал будет добавлен позже</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ia-item">
+            <button class="ia-trigger">
+              Заполнение плана остатков
+              <span class="ia-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="ia-body">
+              <div class="ia-body-inner">
+                <div class="placeholder">
+                  <div class="placeholder-icon">📝</div>
+                  <div class="placeholder-title">Материал в разработке</div>
+                  <div class="placeholder-sub">Материал будет добавлен позже</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const navItems = document.querySelectorAll('.nav-item');
+  const sidebar  = document.getElementById('sidebar');
+  const burger   = document.getElementById('burger');
+  const content  = document.getElementById('content');
+
+  navItems.forEach(btn => {
+    btn.addEventListener('click', () => {
+      navItems.forEach(n => n.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('page-' + btn.dataset.page).classList.add('active');
+      content.scrollTo(0, 0);
+      sidebar.classList.remove('open');
+    });
+  });
+
+  burger.addEventListener('click', () => sidebar.classList.toggle('open'));
+
+  // Tab switching
+  document.querySelectorAll('.section-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const tabId = tab.dataset.tab;
+      const parent = tab.closest('.page-body');
+      parent.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+      parent.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    });
+  });
+
+  // Article accordions (independent toggles)
+  document.querySelectorAll('.article-item').forEach(item => {
+    item.querySelector('.article-trigger').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      item.classList.toggle('open', !isOpen);
+      const body = item.querySelector('.article-body');
+      body.style.maxHeight = isOpen ? '0' : body.scrollHeight + 'px';
+    });
+  });
+
+  // Inline accordions on intro page (independent, no height bugs — use scrollHeight on open)
+  document.querySelectorAll('.ia-item').forEach(item => {
+    item.querySelector('.ia-trigger').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      item.classList.toggle('open', !isOpen);
+      const body = item.querySelector('.ia-body');
+      body.style.maxHeight = isOpen ? '0' : body.scrollHeight + 'px';
+    });
+  });
+</script>
+</body>
+</html>
